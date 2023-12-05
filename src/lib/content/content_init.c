@@ -28,7 +28,7 @@ dc_error content_init(Content* content, int alphabet_size, int dimensions) {
 }
 
 dc_error __content_init_alphabet(Content* content) {
-    content->alphabet = (const char**) malloc(sizeof(const char*) * content->alphabet_size);
+    content->alphabet = (char**) malloc(sizeof(char*) * content->alphabet_size);
 
     if (content->alphabet == NULL) {
         return DC_ERR_THROW_ALLOC(DC_ERR_ARG_ALLOC_ALPHABET);
