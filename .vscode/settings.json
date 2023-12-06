@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "tags.h": "c",
-        "errors_util.h": "c"
+        "errors_util.h": "c",
+        "allocation.h": "c"
     }
 }
