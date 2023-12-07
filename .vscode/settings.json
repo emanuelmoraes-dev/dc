@@ -2,6 +2,9 @@
     "files.associations": {
         "tags.h": "c",
         "errors_util.h": "c",
-        "allocation.h": "c"
+        "allocation.h": "c",
+        "base.h": "c",
+        "index.h": "c",
+        "index_out.h": "c"
     }
 }
