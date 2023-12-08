@@ -12,7 +12,7 @@ typedef struct content {
 } Content;
 
 dc_error content_init(Content* content, int alphabet_size, int dimensions);
-dc_error content_add_sentence(Content* content, move char* sentence, int index);
+dc_error content_set_sentence(Content* content, move char* sentence, int index);
 void content_free(Content* content);
 
 #endif
