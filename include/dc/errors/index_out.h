@@ -12,10 +12,12 @@
 #define DC_ERR_STRCPY_INDEX_OUT(arg, message) __DC_ERR_STRCPY(__DC_ERR_MESSAGE_INDEX_OUT, DC_ERR_ARG_STR_INDEX_OUT(arg), message)
 
 #define DC_ERR_ARG_INDEX_OUT_ALPHABET (1)
+#define DC_ERR_ARG_INDEX_OUT_ODDS (2)
 
 #define DC_ERR_ARG_STR_INDEX_OUT(arg) (\
-    (arg) == DC_ERR_ARG_INDEX_OUT_ALPHABET ? "Alphabet" :(\
-    "Unexpected")\
+    (arg) == DC_ERR_ARG_INDEX_OUT_ALPHABET ? "Alphabet" : (\
+    (arg) == DC_ERR_ARG_INDEX_OUT_ODDS ? "Odds" : (\
+    "Unexpected"))\
 )
 
 #endif
