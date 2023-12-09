@@ -1,5 +1,5 @@
-#ifndef DC_LIB_ERRORS_ERRORS_H_INCLUDED
-#define DC_LIB_ERRORS_ERRORS_H_INCLUDED
+#ifndef DC_LIB_ERRORS_H_INCLUDED
+#define DC_LIB_ERRORS_H_INCLUDED
 
 #include <string.h>
 #include <errno.h>

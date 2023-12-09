@@ -1,6 +1,8 @@
 add_library(
 	uc
 	SHARED
+		src/uc/errors.c
+		src/uc/errors/base.c
 		src/uc/hash_map/hash_map_init.c
 )
 
