@@ -3,6 +3,6 @@ project(dc C)
 
 include(cmake/base.cmake)
 include(cmake/uc.cmake)
-include(cmake/dcl.cmake)
-include(cmake/dcr.cmake)
+include(cmake/dc_lib.cmake)
+include(cmake/dc_cli.cmake)
 include(cmake/link.cmake)

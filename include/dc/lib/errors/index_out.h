@@ -1,0 +1,23 @@
+#ifndef DC_LIB_ERRORS_INDEX_OUT_H_INCLUDED
+#define DC_LIB_ERRORS_INDEX_OUT_H_INCLUDED
+
+#include "dc/lib/errors/base.h"
+
+#define DC_LIB_ERR_ID_INDEX_OUT (3)
+#define DC_LIB_ERR_THROW_INDEX_OUT(arg) __DC_LIB_ERR_THROW(DC_LIB_ERR_ID_INDEX_OUT, arg)
+#define DC_LIB_ERR_IS_INDEX_OUT(error) __DC_LIB_ERR_IS(DC_LIB_ERR_ID_INDEX_OUT, error)
+
+#define __DC_LIB_ERR_MESSAGE_INDEX_OUT "Index Out Of Bounds: "
+#define DC_LIB_ERR_STRLEN_INDEX_OUT(arg) __DC_LIB_ERR_STRLEN(__DC_LIB_ERR_MESSAGE_INDEX_OUT, DC_LIB_ERR_ARG_STR_INDEX_OUT(arg))
+#define DC_LIB_ERR_STRCPY_INDEX_OUT(arg, message) __DC_LIB_ERR_STRCPY(__DC_LIB_ERR_MESSAGE_INDEX_OUT, DC_LIB_ERR_ARG_STR_INDEX_OUT(arg), message)
+
+#define DC_LIB_ERR_ARG_INDEX_OUT_ALPHABET (1)
+#define DC_LIB_ERR_ARG_INDEX_OUT_ODDS (2)
+
+#define DC_LIB_ERR_ARG_STR_INDEX_OUT(arg) (\
+    (arg) == DC_LIB_ERR_ARG_INDEX_OUT_ALPHABET ? "Alphabet" : (\
+    (arg) == DC_LIB_ERR_ARG_INDEX_OUT_ODDS ? "Odds" : (\
+    "Unexpected"))\
+)
+
+#endif
