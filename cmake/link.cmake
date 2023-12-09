@@ -12,3 +12,11 @@ target_link_libraries(
         uc
         dc_lib
 )
+
+target_link_libraries(
+    test
+    PRIVATE
+        base
+        uc
+        dc_lib
+)
