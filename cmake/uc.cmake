@@ -3,7 +3,9 @@ add_library(
 	SHARED
 		src/uc/errors.c
 		src/uc/errors/base.c
-		src/uc/hash_map/hash_map_init.c
+		src/uc/errors/allocation.c
+		src/uc/errors/relocation.c
+		src/uc/hash_map.c
 )
 
 set_target_properties(uc PROPERTIES VERSION 0.0.1)
