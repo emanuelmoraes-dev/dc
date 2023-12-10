@@ -1,6 +1,6 @@
 #include "dc/lib/errors.h"
 
-size_t dc_lib_err_strlen(dc_lib_err error) {
+size_t dc_lib_err_strlen(c_err error) {
 	if (DC_LIB_ERR_IS_ALLOC(error)) {
 		return dc_lib_err_strlen_alloc(DC_LIB_ERR_GET_ARG(error));
 	}
@@ -12,7 +12,7 @@ size_t dc_lib_err_strlen(dc_lib_err error) {
 	return strlen("Unexpected");
 }
 
-errno_t dc_lib_err_strcpy_s(dc_lib_err error, char* message, rsize_t size) {
+errno_t dc_lib_err_strcpy_s(c_err error, char* message, rsize_t size) {
 	if (DC_LIB_ERR_IS_ALLOC(error)) {
 		return dc_lib_err_strcpy_s_alloc(DC_LIB_ERR_GET_ARG(error), message, size);
 	}

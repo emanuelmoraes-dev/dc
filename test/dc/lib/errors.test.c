@@ -15,7 +15,7 @@ void test_dc_lib_errors() {
 }
 
 void __test_dc_lib_errors_alloc() {
-	dc_lib_err e1 = DC_LIB_ERR_THROW_ALLOC(DC_LIB_ERR_ARG_ALLOC_ALPHABET);
+	c_err e1 = DC_LIB_ERR_THROW_ALLOC(DC_LIB_ERR_ARG_ALLOC_ALPHABET);
     size_t l1 = dc_lib_err_strlen(e1);
 
     if (l1 == 31) {
@@ -37,7 +37,7 @@ void __test_dc_lib_errors_alloc() {
 }
 
 void __test_dc_lib_errors_index_out() {
-	dc_lib_err e2 = DC_LIB_ERR_THROW_INDEX_OUT(DC_LIB_ERR_ARG_INDEX_OUT_ALPHABET);
+	c_err e2 = DC_LIB_ERR_THROW_INDEX_OUT(DC_LIB_ERR_ARG_INDEX_OUT_ALPHABET);
     size_t l2 = dc_lib_err_strlen(e2);
 
     if (l2 == 29) {

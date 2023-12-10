@@ -1,6 +1,6 @@
 #include "dc/lib/content.h"
 
-dc_lib_err content_set_odds(Content* content, int si1, int si2, float odds) {
+c_err content_set_odds(Content* content, int si1, int si2, float odds) {
 	if (si1 < 0 || si2 < 0 || si1 >= content->alphabet_size || si2 >= content->alphabet_size) {
 		return DC_LIB_ERR_THROW_INDEX_OUT(DC_LIB_ERR_ARG_INDEX_OUT_ODDS);
 	}

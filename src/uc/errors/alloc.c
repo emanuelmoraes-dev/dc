@@ -1,4 +1,4 @@
-#include "uc/errors/allocation.h"
+#include "uc/errors/alloc.h"
 
 size_t uc_err_arg_strlen_alloc(int arg) {
 	switch(arg) {

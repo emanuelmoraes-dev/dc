@@ -4,7 +4,7 @@
 #include <string.h>
 #include <errno.h>
 
-typedef int uc_err;
+typedef int c_err;
 
 #define UC_OK (0)
 

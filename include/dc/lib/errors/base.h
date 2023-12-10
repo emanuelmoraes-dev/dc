@@ -3,8 +3,7 @@
 
 #include <string.h>
 #include <errno.h>
-
-typedef int dc_lib_err;
+#include "uc/errors/base.h"
 
 #define DC_LIB_OK (0)
 

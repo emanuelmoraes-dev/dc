@@ -3,7 +3,7 @@ add_library(
     SHARED
         src/dc/lib/errors.c
         src/dc/lib/errors/base.c
-        src/dc/lib/errors/allocation.c
+        src/dc/lib/errors/alloc.c
         src/dc/lib/errors/index_out.c
         src/dc/lib/content/content_init.c
         src/dc/lib/content/content_free.c

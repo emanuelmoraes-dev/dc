@@ -1,4 +1,4 @@
-#include "uc/errors/relocation.h"
+#include "uc/errors/realloc.h"
 
 size_t uc_err_arg_strlen_realloc(int arg) {
 	switch(arg) {

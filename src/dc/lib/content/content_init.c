@@ -1,16 +1,16 @@
 #include <stdlib.h>
 #include "dc/lib/content.h"
 
-dc_lib_err __content_init_alphabet(Content* content);
-dc_lib_err __content_init_odds_graph(Content* content);
+c_err __content_init_alphabet(Content* content);
+c_err __content_init_odds_graph(Content* content);
 
-dc_lib_err content_init(Content* content, int alphabet_size, int dimensions) {
+c_err content_init(Content* content, int alphabet_size, int dimensions) {
     content->alphabet_size = alphabet_size;
     content->alphabet = NULL;
     content->odds_graph = NULL;
     content->dimensions = dimensions;
 
-    dc_lib_err error = __content_init_alphabet(content);
+    c_err error = __content_init_alphabet(content);
 
     if (error != DC_LIB_OK) {
         content_free(content);
@@ -27,7 +27,7 @@ dc_lib_err content_init(Content* content, int alphabet_size, int dimensions) {
     return DC_LIB_OK;
 }
 
-dc_lib_err __content_init_alphabet(Content* content) {
+c_err __content_init_alphabet(Content* content) {
     content->alphabet = (char**) malloc(sizeof(char*) * content->alphabet_size);
 
     if (content->alphabet == NULL) {
@@ -41,7 +41,7 @@ dc_lib_err __content_init_alphabet(Content* content) {
     return DC_LIB_OK;
 }
 
-dc_lib_err __content_init_odds_graph(Content* content) {
+c_err __content_init_odds_graph(Content* content) {
     content->odds_graph = (float**) malloc(sizeof(float*) * content->alphabet_size);
 
     if (content->odds_graph == NULL) {

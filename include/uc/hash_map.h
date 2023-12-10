@@ -16,7 +16,7 @@ typedef struct hash_map {
 } HashMap;
 
 void key_value_init(KeyValue* key_value, move char* key, move void* value);
-uc_err hash_map_init(HashMap* hash_map, unsigned int capacity);
-uc_err hash_map_insert(HashMap* hash_map, move char* key, move void* value);
+c_err hash_map_init(HashMap* hash_map, unsigned int capacity);
+c_err hash_map_insert(HashMap* hash_map, move char* key, move void* value);
 
 #endif

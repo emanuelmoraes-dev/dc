@@ -8,7 +8,7 @@ void key_value_init(KeyValue* key_value, move char* key, move void* value) {
 	key_value->value = value;
 }
 
-uc_err hash_map_init(HashMap* hash_map, unsigned int capacity) {
+c_err hash_map_init(HashMap* hash_map, unsigned int capacity) {
 	hash_map->size = 0;
 	hash_map->capacity = capacity;
 	hash_map->data = (KeyValue*) malloc(sizeof(KeyValue) * capacity);
@@ -32,7 +32,7 @@ unsigned int __key_hash(const char* key, unsigned int capacity) {
     return hash % capacity;
 }
 
-uc_err hash_map_insert(HashMap* hash_map, move char* key, move void* value) {
+c_err hash_map_insert(HashMap* hash_map, move char* key, move void* value) {
 	unsigned int capacity = hash_map->capacity;
 	unsigned int index = __key_hash(key, capacity);
 

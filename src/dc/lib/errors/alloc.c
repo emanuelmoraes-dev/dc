@@ -1,4 +1,4 @@
-#include "dc/lib/errors/allocation.h"
+#include "dc/lib/errors/alloc.h"
 
 size_t dc_lib_err_arg_strlen_alloc(int arg) {
 	switch(arg) {
