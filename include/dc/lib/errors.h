@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include <errno.h>
+#include "uc/errors.h"
 
 #include "dc/lib/errors/base.h"
 #include "dc/lib/errors/errno.h"

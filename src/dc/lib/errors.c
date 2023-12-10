@@ -9,7 +9,7 @@ size_t dc_lib_err_strlen(c_err error) {
 		return dc_lib_err_strlen_index_out(DC_LIB_ERR_GET_ARG(error));
 	}
 
-	return strlen("Unexpected");
+	return uc_err_strlen(error);
 }
 
 errno_t dc_lib_err_strcpy_s(c_err error, char* message, rsize_t size) {
@@ -21,5 +21,5 @@ errno_t dc_lib_err_strcpy_s(c_err error, char* message, rsize_t size) {
 		return dc_lib_err_strcpy_s_index_out(DC_LIB_ERR_GET_ARG(error), message, size);
 	}
 
-	return strcpy_s(message, size, "Unexpected");
+	return uc_err_strcpy_s(error, message, size);
 }
