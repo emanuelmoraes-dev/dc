@@ -34,7 +34,9 @@ c_err hash_map_init(HashMap* hash_map, unsigned int capacity) {
 	return C_OK;
 }
 
-void __hash_map_data_free(KeyValue* data, void (*value_free)(void* value), unsigned int capacity) {
+void hash_map_clear(HashMap* hash_map, void (*value_free)(void* value)) {
+	KeyValue* data = hash_map->data;
+	unsigned int capacity = hash_map->capacity;
 	if (data == NULL) {
 		return;
 	}
@@ -49,7 +51,10 @@ void __hash_map_data_free(KeyValue* data, void (*value_free)(void* value), unsig
 }
 
 void hash_map_free(HashMap* hash_map, void (*value_free)(void* value)) {
-	__hash_map_data_free(hash_map->data, value_free, hash_map->capacity);
+	hash_map_clear(hash_map, value_free);
+	if (hash_map->data != NULL) {
+		free(hash_map->data);
+	}
 }
 
 unsigned int __key_hash(const char* key, unsigned int capacity) {
@@ -60,20 +65,37 @@ unsigned int __key_hash(const char* key, unsigned int capacity) {
     return hash % capacity;
 }
 
-bool __hash_map_set(HashMap* hash_map, move char* key, share void* value) {
+unsigned int __hash_map_index(HashMap* hash_map, const char* key) {
 	unsigned int capacity = hash_map->capacity;
 	unsigned int index = __key_hash(key, capacity);
 
 	unsigned int count = 0;
 	for (unsigned int i = index; count < capacity; i = (i + 1) % capacity, ++count) {
 		if (hash_map->data[i].key != NULL && strcmp(hash_map->data[i].key, key) == 0) {
-			hash_map->data[i].value = value;
-			return true;
+			return i;
 		}
 	}
 
+	return -1;
+}
+
+bool hash_map_contains(HashMap* hash_map, const char* key) {
+	return __hash_map_index(hash_map, key) >= 0;
+}
+
+bool __hash_map_set(HashMap* hash_map, move char* key, share void* value) {
+	unsigned int index = __hash_map_index(hash_map, key);
+
+	if (index >= 0) {
+		hash_map->data[index].value = value;
+		return true;
+	}
+
+	unsigned int capacity = hash_map->capacity;
+	index = __key_hash(key, capacity);
 	bool inserted = false;
-	count = 0;
+	unsigned int count = 0;
+
 	for (unsigned int i = index; count < capacity; i = (i + 1) % capacity, ++count) {
 		if (hash_map->data[i].key == NULL) {
 			key_value_init(&hash_map->data[i], key, value);
@@ -129,15 +151,29 @@ c_err hash_map_insert(HashMap* hash_map, move char* key, share void* value) {
 }
 
 void* hash_map_get(HashMap* hash_map, const char* key) {
-	unsigned int capacity = hash_map->capacity;
-	unsigned int index = __key_hash(key, capacity);
+	unsigned int index = __hash_map_index(hash_map, key);
 
-	unsigned int count = 0;
-	for (unsigned int i = index; count < capacity; i = (i + 1) % capacity, ++count) {
-		if (hash_map->data[i].key != NULL && strcmp(hash_map->data[i].key, key) == 0) {
-			return hash_map->data[i].value;
-		}
+	if (index < 0) {
+		return NULL;
 	}
 
-	return NULL;
+	return hash_map->data[index].value;
+}
+
+void* hash_map_remove(HashMap* hash_map, const char* key) {
+	unsigned int index = __hash_map_index(hash_map, key);
+
+	if (index < 0) {
+		return NULL;
+	}
+
+	void* value = hash_map->data[index].value;
+	hash_map->data[index].value = NULL;
+
+	if (hash_map->data[index].key != NULL) {
+		free(hash_map->data[index].key);
+		hash_map->data[index].key = NULL;
+	}
+
+	return value;
 }
