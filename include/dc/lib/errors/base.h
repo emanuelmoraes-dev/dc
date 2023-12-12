@@ -5,7 +5,7 @@
 #include <errno.h>
 #include "uc/errors/base.h"
 
-#define DC_LIB_OK (0)
+#define C_OK (0)
 
 #define __DC_LIB_ERR_FACTOR (100)
 #define __DC_LIB_ERR_BASE (100)

@@ -7,5 +7,5 @@ c_err content_set_odds(Content* content, int si1, int si2, float odds) {
 
 	content->odds_graph[si1][si2] = odds;
 
-	return DC_LIB_OK;
+	return C_OK;
 }

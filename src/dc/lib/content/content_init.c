@@ -12,19 +12,19 @@ c_err content_init(Content* content, int alphabet_size, int dimensions) {
 
     c_err error = __content_init_alphabet(content);
 
-    if (error != DC_LIB_OK) {
+    if (error != C_OK) {
         content_free(content);
         return error;
     }
 
     error = __content_init_odds_graph(content);
 
-    if (error != DC_LIB_OK) {
+    if (error != C_OK) {
         content_free(content);
         return error;
     }
 
-    return DC_LIB_OK;
+    return C_OK;
 }
 
 c_err __content_init_alphabet(Content* content) {
@@ -38,7 +38,7 @@ c_err __content_init_alphabet(Content* content) {
         content->alphabet[i] = NULL;
     }
 
-    return DC_LIB_OK;
+    return C_OK;
 }
 
 c_err __content_init_odds_graph(Content* content) {
@@ -60,5 +60,5 @@ c_err __content_init_odds_graph(Content* content) {
         }
     }
 
-    return DC_LIB_OK;
+    return C_OK;
 }

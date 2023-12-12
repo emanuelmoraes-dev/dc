@@ -7,5 +7,5 @@ c_err content_set_sentence(Content* content, move char* sentence, int index) {
 
     content->alphabet[index] = sentence;
 
-    return DC_LIB_OK;
+    return C_OK;
 }

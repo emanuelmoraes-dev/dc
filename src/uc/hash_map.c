@@ -31,7 +31,7 @@ c_err hash_map_init(borrow HashMap* hash_map, unsigned int capacity) {
 		return UC_ERR_THROW_ALLOC(UC_ERR_ARG_ALLOC_HASH_MAP_DATA);
 	}
 
-	return UC_OK;
+	return C_OK;
 }
 
 void __hash_map_data_free(borrow KeyValue* data, void (*value_free)(void* value), unsigned int capacity) {
@@ -107,7 +107,7 @@ c_err __hash_map_realloc(borrow HashMap* hash_map) {
 	}
 
 	free(bk_data);
-	return UC_OK;
+	return C_OK;
 }
 
 c_err hash_map_insert(borrow HashMap* hash_map, move char* key, void* value) {
@@ -116,7 +116,7 @@ c_err hash_map_insert(borrow HashMap* hash_map, move char* key, void* value) {
 	if (hash_map->size >= hash_map->capacity * 0.7) {
 		c_err error = __hash_map_realloc(hash_map);
 
-		if (error != UC_OK) {
+		if (error != C_OK) {
 			return error;
 		}
 	}
@@ -125,7 +125,7 @@ c_err hash_map_insert(borrow HashMap* hash_map, move char* key, void* value) {
 		__hash_map_set(hash_map, key, value);
 	}
 
-	return UC_OK;
+	return C_OK;
 }
 
 void* hash_map_get(borrow HashMap* hash_map, borrow const char* key) {

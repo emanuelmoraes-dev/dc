@@ -6,7 +6,7 @@
 
 typedef int c_err;
 
-#define UC_OK (0)
+#define C_OK (0)
 
 #define __UC_ERR_FACTOR (100)
 #define __UC_ERR_BASE (10000)
