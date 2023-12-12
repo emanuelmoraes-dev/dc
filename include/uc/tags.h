@@ -2,7 +2,7 @@
 #define UC_TAGS_H_INCLUDED
 
 #define owner
-#define borrow
+#define share
 #define move
 
 #endif

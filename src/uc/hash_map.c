@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include "uc/hash_map.h"
 
-void key_value_init(borrow KeyValue* key_value, move char* key, void* value) {
+void key_value_init(KeyValue* key_value, move char* key, share void* value) {
 	key_value->key = key;
 	key_value->value = value;
 }
@@ -22,7 +22,7 @@ KeyValue* __hash_map_new_data(unsigned int capacity) {
 	return data;
 }
 
-c_err hash_map_init(borrow HashMap* hash_map, unsigned int capacity) {
+c_err hash_map_init(HashMap* hash_map, unsigned int capacity) {
 	hash_map->size = 0;
 	hash_map->capacity = capacity;
 	hash_map->data = __hash_map_new_data(capacity);
@@ -34,7 +34,7 @@ c_err hash_map_init(borrow HashMap* hash_map, unsigned int capacity) {
 	return C_OK;
 }
 
-void __hash_map_data_free(borrow KeyValue* data, void (*value_free)(void* value), unsigned int capacity) {
+void __hash_map_data_free(KeyValue* data, void (*value_free)(void* value), unsigned int capacity) {
 	if (data == NULL) {
 		return;
 	}
@@ -48,11 +48,11 @@ void __hash_map_data_free(borrow KeyValue* data, void (*value_free)(void* value)
 	}
 }
 
-void hash_map_free(borrow HashMap* hash_map, void (*value_free)(void* value)) {
+void hash_map_free(HashMap* hash_map, void (*value_free)(void* value)) {
 	__hash_map_data_free(hash_map->data, value_free, hash_map->capacity);
 }
 
-unsigned int __key_hash(borrow const char* key, unsigned int capacity) {
+unsigned int __key_hash(const char* key, unsigned int capacity) {
     unsigned int hash = 0;
     while (*key) {
         hash = (hash * 31) + (*key++);
@@ -60,7 +60,7 @@ unsigned int __key_hash(borrow const char* key, unsigned int capacity) {
     return hash % capacity;
 }
 
-bool __hash_map_set(borrow HashMap* hash_map, move char* key, void* value) {
+bool __hash_map_set(HashMap* hash_map, move char* key, share void* value) {
 	unsigned int capacity = hash_map->capacity;
 	unsigned int index = __key_hash(key, capacity);
 
@@ -86,7 +86,7 @@ bool __hash_map_set(borrow HashMap* hash_map, move char* key, void* value) {
 	return inserted;
 }
 
-c_err __hash_map_realloc(borrow HashMap* hash_map) {
+c_err __hash_map_realloc(HashMap* hash_map) {
 	KeyValue* bk_data = hash_map->data;
 	unsigned int bk_capacity = hash_map->capacity;
 	unsigned int new_capacity = bk_capacity * 2;
@@ -110,7 +110,7 @@ c_err __hash_map_realloc(borrow HashMap* hash_map) {
 	return C_OK;
 }
 
-c_err hash_map_insert(borrow HashMap* hash_map, move char* key, void* value) {
+c_err hash_map_insert(HashMap* hash_map, move char* key, share void* value) {
 	bool inserted = __hash_map_set(hash_map, key, value);
 
 	if (hash_map->size >= hash_map->capacity * 0.7) {
@@ -128,7 +128,7 @@ c_err hash_map_insert(borrow HashMap* hash_map, move char* key, void* value) {
 	return C_OK;
 }
 
-void* hash_map_get(borrow HashMap* hash_map, borrow const char* key) {
+void* hash_map_get(HashMap* hash_map, const char* key) {
 	unsigned int capacity = hash_map->capacity;
 	unsigned int index = __key_hash(key, capacity);
 
