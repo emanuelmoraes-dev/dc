@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "dc/lib/content.h"
+#include "dcl/content.h"
 
 void __content_free_alphabet(Content* content);
 void __content_free_odds_grath(Content* content);

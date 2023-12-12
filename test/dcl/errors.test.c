@@ -1,22 +1,22 @@
 #include <stdio.h>
-#include "test/dc.test.h"
-#include "dc/lib/errors.h"
+#include "test/dcl.test.h"
+#include "dcl/errors.h"
 
-void __test_dc_lib_errors_alloc();
-void __test_dc_lib_errors_index_out();
+void __test_dcl_errors_alloc();
+void __test_dcl_errors_index_out();
 
-void test_dc_lib_errors() {
-	printf("===== test_dc_lib_errors =====\n");
+void test_dcl_errors() {
+	printf("===== test_dcl_errors =====\n");
 
-    __test_dc_lib_errors_alloc();
-    __test_dc_lib_errors_index_out();
+    __test_dcl_errors_alloc();
+    __test_dcl_errors_index_out();
 
-    printf("----- test_dc_lib_errors -----\n");
+    printf("----- test_dcl_errors -----\n");
 }
 
-void __test_dc_lib_errors_alloc() {
-	c_err e1 = DC_LIB_ERR_THROW_ALLOC(DC_LIB_ERR_ARG_ALLOC_ALPHABET);
-    size_t l1 = dc_lib_err_strlen(e1);
+void __test_dcl_errors_alloc() {
+	c_err e1 = DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_ALPHABET);
+    size_t l1 = dcl_err_strlen(e1);
 
     if (l1 == 31) {
     	printf("Ok(l1)\n");
@@ -25,7 +25,7 @@ void __test_dc_lib_errors_alloc() {
     }
 
     char m1[l1 + 1];
-    errno_t _error = dc_lib_err_strcpy_s(e1, m1, sizeof(m1));
+    errno_t _error = dcl_err_strcpy_s(e1, m1, sizeof(m1));
 
     if (_error == 0 && strcmp(m1, "Error When Allocating: Alphabet") == 0) {
     	printf("Ok(m1)\n");
@@ -36,9 +36,9 @@ void __test_dc_lib_errors_alloc() {
     }
 }
 
-void __test_dc_lib_errors_index_out() {
-	c_err e2 = DC_LIB_ERR_THROW_INDEX_OUT(DC_LIB_ERR_ARG_INDEX_OUT_ALPHABET);
-    size_t l2 = dc_lib_err_strlen(e2);
+void __test_dcl_errors_index_out() {
+	c_err e2 = DCL_ERR_THROW_INDEX_OUT(DCL_ERR_ARG_INDEX_OUT_ALPHABET);
+    size_t l2 = dcl_err_strlen(e2);
 
     if (l2 == 29) {
     	printf("Ok(l2)\n");
@@ -47,7 +47,7 @@ void __test_dc_lib_errors_index_out() {
     }
 
     char m2[l2 + 1];
-    errno_t _error = dc_lib_err_strcpy_s(e2, m2, sizeof(m2));
+    errno_t _error = dcl_err_strcpy_s(e2, m2, sizeof(m2));
 
     if (_error == 0 && strcmp(m2, "Index Out Of Bounds: Alphabet") == 0) {
     	printf("Ok(m2)\n");

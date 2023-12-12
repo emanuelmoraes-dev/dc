@@ -1,8 +1,8 @@
-#ifndef DC_LIB_CONTENT_H_INCLUDED
-#define DC_LIB_CONTENT_H_INCLUDED
+#ifndef DCL_CONTENT_H_INCLUDED
+#define DCL_CONTENT_H_INCLUDED
 
 #include "uc/tags.h"
-#include "dc/lib/errors.h"
+#include "dcl/errors.h"
 
 typedef struct content {
     int alphabet_size;

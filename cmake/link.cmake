@@ -1,16 +1,16 @@
 target_link_libraries(
-    dc_lib
+    dcl
     PRIVATE
         base
         uc
 )
 
 target_link_libraries(
-    dc_cli
+    dcc
     PRIVATE
         base
         uc
-        dc_lib
+        dcl
 )
 
 target_link_libraries(
@@ -18,5 +18,5 @@ target_link_libraries(
     PRIVATE
         base
         uc
-        dc_lib
+        dcl
 )

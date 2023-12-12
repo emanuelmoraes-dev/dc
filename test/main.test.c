@@ -1,6 +1,6 @@
-#include "test/dc.test.h"
+#include "test/dcl.test.h"
 
 int main(int argc, const char* argv[]) {
-	test_dc();
+	test_dcl();
 	return 0;
 }
