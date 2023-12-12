@@ -59,3 +59,4 @@ dkms.conf
 
 # others
 /.vs/
+/.vscode/
