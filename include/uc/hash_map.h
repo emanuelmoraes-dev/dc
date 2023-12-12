@@ -6,7 +6,7 @@
 
 typedef struct key_value {
 	owner char* key;
-	owner void* value;
+	void* value;
 } KeyValue;
 
 typedef struct hash_map {
@@ -17,6 +17,8 @@ typedef struct hash_map {
 
 void key_value_init(KeyValue* key_value, move char* key, move void* value);
 c_err hash_map_init(HashMap* hash_map, unsigned int capacity);
+void hash_map_free(HashMap* hash_map, void (*value_free)(void* value));
 c_err hash_map_insert(HashMap* hash_map, move char* key, move void* value);
+void* hash_map_get(HashMap* hash_map, borrow const char* key);
 
 #endif

@@ -44,15 +44,199 @@
 	"buffers":
 	[
 		{
-			"file": "src/dc/lib/content/content_alphabet.c",
+			"file": "src/uc/hash_map.c",
 			"settings":
 			{
-				"buffer_size": 320,
+				"buffer_size": 2022,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
+				"line_ending": "Windows"
 			},
 			"undo_stack":
 			[
+				[
+					22,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AgAAACwGAAAAAAAALQYAAAAAAAAAAAAALQYAAAAAAAAvBgAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAALAYAAAAAAAAsBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					23,
+					1,
+					"insert",
+					{
+						"characters": "Key"
+					},
+					"AwAAAC8GAAAAAAAAMAYAAAAAAAAAAAAAMAYAAAAAAAAxBgAAAAAAAAAAAAAxBgAAAAAAADIGAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAALwYAAAAAAAAvBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					24,
+					1,
+					"insert",
+					{
+						"characters": " "
+					},
+					"AQAAADIGAAAAAAAAMwYAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAMgYAAAAAAAAyBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					25,
+					1,
+					"left_delete",
+					null,
+					"AQAAADIGAAAAAAAAMgYAAAAAAAABAAAAIA",
+					"AQAAAAAAAAABAAAAMwYAAAAAAAAzBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					26,
+					1,
+					"insert",
+					{
+						"characters": "Value"
+					},
+					"BQAAADIGAAAAAAAAMwYAAAAAAAAAAAAAMwYAAAAAAAA0BgAAAAAAAAAAAAA0BgAAAAAAADUGAAAAAAAAAAAAADUGAAAAAAAANgYAAAAAAAAAAAAANgYAAAAAAAA3BgAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAMgYAAAAAAAAyBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					27,
+					1,
+					"insert_snippet",
+					{
+						"contents": "($0)"
+					},
+					"AQAAADcGAAAAAAAAOQYAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAANwYAAAAAAAA3BgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					28,
+					1,
+					"run_macro_file",
+					{
+						"file": "res://Packages/Default/Delete Left Right.sublime-macro"
+					},
+					"AgAAADcGAAAAAAAANwYAAAAAAAABAAAAKDcGAAAAAAAANwYAAAAAAAABAAAAKQ",
+					"AQAAAAAAAAABAAAAOAYAAAAAAAA4BgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					29,
+					1,
+					"insert",
+					{
+						"characters": "*"
+					},
+					"AQAAADcGAAAAAAAAOAYAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAANwYAAAAAAAA3BgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					30,
+					1,
+					"insert",
+					{
+						"characters": " new"
+					},
+					"BAAAADgGAAAAAAAAOQYAAAAAAAAAAAAAOQYAAAAAAAA6BgAAAAAAAAAAAAA6BgAAAAAAADsGAAAAAAAAAAAAADsGAAAAAAAAPAYAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAOAYAAAAAAAA4BgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					31,
+					1,
+					"insert",
+					{
+						"characters": "_data"
+					},
+					"BQAAADwGAAAAAAAAPQYAAAAAAAAAAAAAPQYAAAAAAAA+BgAAAAAAAAAAAAA+BgAAAAAAAD8GAAAAAAAAAAAAAD8GAAAAAAAAQAYAAAAAAAAAAAAAQAYAAAAAAABBBgAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAPAYAAAAAAAA8BgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					32,
+					1,
+					"insert",
+					{
+						"characters": " ="
+					},
+					"AgAAAEEGAAAAAAAAQgYAAAAAAAAAAAAAQgYAAAAAAABDBgAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAQQYAAAAAAABBBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					33,
+					1,
+					"insert",
+					{
+						"characters": " "
+					},
+					"AQAAAEMGAAAAAAAARAYAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAQwYAAAAAAABDBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					40,
+					1,
+					"insert_snippet",
+					{
+						"contents": "($0)"
+					},
+					"AQAAAEQGAAAAAAAARgYAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAARAYAAAAAAABEBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					41,
+					1,
+					"insert",
+					{
+						"characters": "KeyValue*"
+					},
+					"CQAAAEUGAAAAAAAARgYAAAAAAAAAAAAARgYAAAAAAABHBgAAAAAAAAAAAABHBgAAAAAAAEgGAAAAAAAAAAAAAEgGAAAAAAAASQYAAAAAAAAAAAAASQYAAAAAAABKBgAAAAAAAAAAAABKBgAAAAAAAEsGAAAAAAAAAAAAAEsGAAAAAAAATAYAAAAAAAAAAAAATAYAAAAAAABNBgAAAAAAAAAAAABNBgAAAAAAAE4GAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAARQYAAAAAAABFBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					42,
+					1,
+					"insert",
+					{
+						"characters": " "
+					},
+					"AQAAAE4GAAAAAAAATwYAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAATgYAAAAAAABOBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					43,
+					1,
+					"left_delete",
+					null,
+					"AQAAAE4GAAAAAAAATgYAAAAAAAABAAAAIA",
+					"AQAAAAAAAAABAAAATwYAAAAAAABPBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					45,
+					1,
+					"insert",
+					{
+						"characters": " malloc"
+					},
+					"BwAAAE8GAAAAAAAAUAYAAAAAAAAAAAAAUAYAAAAAAABRBgAAAAAAAAAAAABRBgAAAAAAAFIGAAAAAAAAAAAAAFIGAAAAAAAAUwYAAAAAAAAAAAAAUwYAAAAAAABUBgAAAAAAAAAAAABUBgAAAAAAAFUGAAAAAAAAAAAAAFUGAAAAAAAAVgYAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAATwYAAAAAAABPBgAAAAAAAP///////+9/"
+				],
+				[
+					46,
+					1,
+					"insert_snippet",
+					{
+						"contents": "($0)"
+					},
+					"AQAAAFYGAAAAAAAAWAYAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAVgYAAAAAAABWBgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					49,
+					2,
+					"left_delete",
+					null,
+					"AgAAAC0GAAAAAAAALQYAAAAAAAArAAAACQlLZXlWYWx1ZSogbmV3X2RhdGEgPSAoS2V5VmFsdWUqKSBtYWxsb2MoKSwGAAAAAAAALAYAAAAAAAABAAAACg",
+					"AQAAAAAAAAABAAAAWAYAAAAAAAAtBgAAAAAAAAAAAAAAAAAA"
+				]
 			]
 		}
 	],
@@ -121,40 +305,46 @@
 	[
 		"/C/Users/almei/projects/dc",
 		"/C/Users/almei/projects/dc/src",
-		"/C/Users/almei/projects/dc/src/dc",
-		"/C/Users/almei/projects/dc/src/dc/lib",
-		"/C/Users/almei/projects/dc/src/dc/lib/content"
+		"/C/Users/almei/projects/dc/src/uc"
 	],
 	"file_history":
 	[
-		"/C/Users/almei/projects/dc/dc.sublime-project",
+		"/C/Users/almei/projects/dc/include/uc/errors.h",
+		"/C/Users/almei/projects/dc/include/dc/lib/errors.h",
+		"/C/Users/almei/projects/dc/src/dc/lib/errors.c",
+		"/C/Users/almei/projects/dc/include/uc/errors/base.h",
+		"/C/Users/almei/projects/dc/src/uc/errors.c",
+		"/C/Users/almei/projects/dc/include/dc/lib/errors/alloc.h",
+		"/C/Users/almei/projects/dc/include/uc/errors/alloc.h",
+		"/C/Users/almei/projects/dc/include/uc/errors/realloc.h",
+		"/C/Users/almei/projects/dc/include/dc/lib/errors/base.h",
+		"/C/Users/almei/projects/dc/src/uc/errors/realloc.c",
+		"/C/Users/almei/projects/dc/.vscode/settings.json",
+		"/C/Users/almei/projects/dc/src/dc/lib/errors/alloc.c",
+		"/C/Users/almei/projects/dc/src/uc/errors/alloc.c",
+		"/C/Users/almei/projects/dc/cmake/dc_lib.cmake",
+		"/C/Users/almei/projects/dc/cmake/uc.cmake",
+		"/C/Users/almei/projects/dc/src/dc/lib/content/content_alphabet.c",
 		"/C/Users/almei/projects/dc/src/dc/lib/content/content_init.c",
 		"/C/Users/almei/projects/dc/src/dc/lib/content/content_odds.c",
-		"/C/Users/almei/projects/dc/src/uc/errors.c",
-		"/C/Users/almei/projects/dc/include/dc/lib/content.h",
-		"/C/Users/almei/projects/dc/include/uc/hash_map.h",
+		"/C/Users/almei/projects/dc/test/dc/lib/errors.test.c",
 		"/C/Users/almei/projects/dc/src/uc/hash_map.c",
+		"/C/Users/almei/projects/dc/src/uc/errors/relocation.c",
+		"/C/Users/almei/projects/dc/include/uc/errors/relocation.h",
+		"/C/Users/almei/projects/dc/include/uc/errors/allocation.h",
+		"/C/Users/almei/projects/dc/src/uc/errors/allocation.c",
+		"/C/Users/almei/projects/dc/include/uc/hash_map.h",
+		"/C/Users/almei/projects/dc/include/dc/lib/content.h",
+		"/C/Users/almei/projects/dc/dc.sublime-project",
 		"/C/Users/almei/projects/dc/.gitignore",
 		"/C/Users/almei/projects/dc/include/uc/tags.h",
 		"/C/Users/almei/projects/dc/include/uc/math_util.h",
-		"/C/Users/almei/projects/dc/include/uc/errors/allocation.h",
-		"/C/Users/almei/projects/dc/include/uc/errors/relocation.h",
-		"/C/Users/almei/projects/dc/src/uc/errors/relocation.c",
-		"/C/Users/almei/projects/dc/include/uc/errors.h",
-		"/C/Users/almei/projects/dc/cmake/uc.cmake",
 		"/C/Users/almei/projects/dc/src/uc/hash_map/hash_map_init.c",
-		"/C/Users/almei/projects/dc/include/uc/errors/base.h",
 		"/C/Users/almei/projects/dc/src/uc/errors/base.c",
-		"/C/Users/almei/projects/dc/src/uc/errors/allocation.c",
 		"/C/Users/almei/projects/dc/src/dc/lib/errors/allocation.c",
-		"/C/Users/almei/projects/dc/src/dc/lib/errors.c",
 		"/C/Users/almei/projects/dc/include/dc/lib/errors/allocation.h",
-		"/C/Users/almei/projects/dc/include/dc/lib/errors/base.h",
-		"/C/Users/almei/projects/dc/include/dc/lib/errors.h",
 		"/C/Users/almei/projects/dc/cmake/dc_cli.cmake",
-		"/C/Users/almei/projects/dc/cmake/dc_lib.cmake",
 		"/C/Users/almei/projects/dc/src/dc/lib/errors/base.c",
-		"/C/Users/almei/projects/dc/test/dc/lib/errors.test.c",
 		"/C/Users/almei/projects/dc/include/dc/lib/errors/index_out.h",
 		"/C/Users/almei/projects/dc/src/dc/cli/main.c",
 		"/C/Users/almei/projects/dc/cmake/test.cmake",
@@ -167,7 +357,6 @@
 		"/C/Users/almei/projects/dc/src/dc/lib/errors/index_out.c",
 		"/C/Users/almei/projects/dc/include/dc/lib/errors/errno.h",
 		"/C/Users/almei/projects/dc/src/dc/lib/errors/errors.c",
-		"/C/Users/almei/projects/dc/src/dc/lib/content/content_alphabet.c",
 		"/C/Users/almei/projects/dc/src/dc/lib/content/content_free.c",
 		"/C/Users/almei/projects/dc/src/cli/main.c",
 		"/C/Users/almei/projects/dc/include/dc/lib/errors/errors.h",
@@ -197,20 +386,26 @@
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 27.2
 	},
 	"find_in_files":
 	{
 		"height": 104.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"relocation.h",
+			"allocation.h",
+			"dc_lib_err",
+			"dc_err",
+			"uc_err"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -218,13 +413,16 @@
 		"regex": false,
 		"replace_history":
 		[
+			"realloc.h",
+			"alloc.h",
+			"c_err"
 		],
 		"reverse": false,
 		"scrollbar_highlights": true,
 		"show_context": true,
 		"use_buffer2": true,
 		"use_gitignore": true,
-		"whole_word": false,
+		"whole_word": true,
 		"wrap": true
 	},
 	"groups":
@@ -234,30 +432,30 @@
 			[
 				{
 					"buffer": 0,
-					"file": "src/dc/lib/content/content_alphabet.c",
+					"file": "src/uc/hash_map.c",
 					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 320,
+						"buffer_size": 2022,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								320,
-								320
+								1580,
+								1580
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 741.6,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -304,7 +502,7 @@
 	},
 	"output.Terminus":
 	{
-		"height": 254.0
+		"height": 292.0
 	},
 	"output.find_results":
 	{
@@ -353,8 +551,8 @@
 	{
 	},
 	"show_minimap": true,
-	"show_open_files": false,
-	"show_tabs": true,
+	"show_open_files": true,
+	"show_tabs": false,
 	"side_bar_visible": true,
 	"side_bar_width": 313.0,
 	"status_bar_visible": true,
