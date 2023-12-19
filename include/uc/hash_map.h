@@ -16,13 +16,22 @@ typedef struct hash_map {
 	owner KeyValue* data;
 } HashMap;
 
+typedef struct hash_map_iterator {
+	unsigned int index;
+	bool __reseted;
+} HashMapIterator;
+
 void key_value_init(KeyValue* key_value, move char* key, share void* value);
 c_err hash_map_init(HashMap* hash_map, unsigned int capacity);
 void hash_map_clear(HashMap* hash_map, void (*value_free)(void* value));
 void hash_map_free(HashMap* hash_map, void (*value_free)(void* value));
-bool hash_map_contains(HashMap* hash_map, const char* key);
+bool hash_map_contains(const HashMap* hash_map, const char* key);
 c_err hash_map_insert(HashMap* hash_map, move char* key, share void* value);
-void* hash_map_get(HashMap* hash_map, const char* key);
+void* hash_map_get(const HashMap* hash_map, const char* key);
 void* hash_map_remove(HashMap* hash_map, const char* key);
+void hash_map_make_iterator(const HashMap* hash_map, HashMapIterator* iterator);
+bool hash_map_has_next(const HashMap* hash_map, const HashMapIterator* iterator);
+c_err hash_map_next(const HashMap* hash_map, HashMapIterator* iterator);
+c_err hash_map_share_key_value(const HashMap* hash_map, const HashMapIterator* iterator, share char** key, share void** value);
 
 #endif

@@ -65,7 +65,7 @@ unsigned int __key_hash(const char* key, unsigned int capacity) {
     return hash % capacity;
 }
 
-unsigned int __hash_map_index(HashMap* hash_map, const char* key) {
+unsigned int __hash_map_index(const HashMap* hash_map, const char* key) {
 	unsigned int capacity = hash_map->capacity;
 	unsigned int index = __key_hash(key, capacity);
 
@@ -79,7 +79,7 @@ unsigned int __hash_map_index(HashMap* hash_map, const char* key) {
 	return -1;
 }
 
-bool hash_map_contains(HashMap* hash_map, const char* key) {
+bool hash_map_contains(const HashMap* hash_map, const char* key) {
 	return __hash_map_index(hash_map, key) >= 0;
 }
 
@@ -150,7 +150,7 @@ c_err hash_map_insert(HashMap* hash_map, move char* key, share void* value) {
 	return C_OK;
 }
 
-void* hash_map_get(HashMap* hash_map, const char* key) {
+void* hash_map_get(const HashMap* hash_map, const char* key) {
 	unsigned int index = __hash_map_index(hash_map, key);
 
 	if (index < 0) {
@@ -176,4 +176,67 @@ void* hash_map_remove(HashMap* hash_map, const char* key) {
 	}
 
 	return value;
+}
+
+void hash_map_make_iterator(const HashMap* hash_map, HashMapIterator* iterator) {
+	iterator->index = hash_map->capacity;
+	iterator->__reseted = true;
+}
+
+unsigned int __hash_map_next_index(const HashMapIterator* iterator) {
+	if (iterator->__reseted) {
+		return 0;
+	}
+	return iterator->index + 1;
+}
+
+bool hash_map_has_next(const HashMap* hash_map, const HashMapIterator* iterator) {
+	unsigned int capacity = hash_map->capacity;
+	unsigned int index = __hash_map_next_index(iterator);
+
+	if (index < 0 || index >= hash_map->capacity) {
+		return false;
+	}
+
+	for (unsigned int i = index; i < capacity; ++i) {
+		if (hash_map->data[i].key != NULL) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+c_err hash_map_next(const HashMap* hash_map, HashMapIterator* iterator) {
+	unsigned int capacity = hash_map->capacity;
+	unsigned int index = __hash_map_next_index(iterator);
+
+	if (index < 0 || index >= hash_map->capacity) {
+		return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
+	}
+
+	for (unsigned int i = index; i < capacity; ++i) {
+		if (hash_map->data[i].key != NULL) {
+			iterator->index = i;
+			iterator->__reseted = false;
+			return C_OK;
+		}
+	}
+	return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
+}
+
+c_err hash_map_share_key_value(const HashMap* hash_map, const HashMapIterator* iterator, share char** key, share void** value) {
+	unsigned int index = iterator->index;
+	if (iterator->__reseted) {
+		return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
+	}
+	if (index < 0 || index >= hash_map->capacity) {
+		return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
+	}
+	if (hash_map->data[index].key == NULL) {
+		return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
+	}
+	*key = hash_map->data[index].key;
+	*value = hash_map->data[index].value;
+	return C_OK;
 }

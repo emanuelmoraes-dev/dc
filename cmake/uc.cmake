@@ -5,6 +5,8 @@ add_library(
 		src/uc/errors/base.c
 		src/uc/errors/alloc.c
 		src/uc/errors/realloc.c
+		src/uc/errors/not_found.c
+		src/uc/errors/empty.c
 		src/uc/hash_map.c
 )
 
