@@ -7,6 +7,7 @@ add_library(
 		src/uc/errors/realloc.c
 		src/uc/errors/not_found.c
 		src/uc/errors/empty.c
+		src/uc/errors/overflow.c
 		src/uc/hash_map.c
 )
 
