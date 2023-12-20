@@ -18,9 +18,6 @@
 #define UC_ERR_ARG_OVERFLOW_LARGE_HASH_MAP_CAPACITY (3)
 #define UC_ERR_ARG_MESSAGE_OVERFLOW_LARGE_HASH_MAP_CAPACITY "Hash Map capacity cannot be reallocated because the result is too large"
 
-#define UC_ERR_ARG_OVERFLOW_SMALL_HASH_MAP_CAPACITY (4)
-#define UC_ERR_ARG_MESSAGE_OVERFLOW_SMALL_HASH_MAP_CAPACITY "Hash Map capacity cannot be reallocated because the result is too small"
-
 size_t uc_err_arg_strlen_overflow(int arg);
 errno_t uc_err_arg_strcat_s_overflow(int arg, char* message, rsize_t size);
 

@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <limits.h>
 #include "uc/hash_map.h"
 
 void key_value_init(KeyValue* key_value, move char* key, share void* value) {
@@ -111,6 +112,11 @@ bool __hash_map_set(HashMap* hash_map, move char* key, share void* value) {
 c_err __hash_map_realloc(HashMap* hash_map) {
 	KeyValue* bk_data = hash_map->data;
 	unsigned int bk_capacity = hash_map->capacity;
+
+	if (UC_ERR_IS_OVERFLOW_LARGE_MULT(bk_capacity, 2, UINT_MAX)) {
+		return UC_ERR_THROW_OVERFLOW(UC_ERR_ARG_OVERFLOW_LARGE_HASH_MAP_CAPACITY);
+	}
+
 	unsigned int new_capacity = bk_capacity * 2;
 	KeyValue* new_data = __hash_map_new_data(new_capacity);
 
