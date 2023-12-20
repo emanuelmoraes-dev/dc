@@ -34,13 +34,13 @@
 )
 
 #define __UC_ERR_IS_OVERFLOW_LARGE_POS_MULT(a_positive, x_positive, MAX_VALUE) \
-    ((x_positive) && (a_positive) > (MAX_VALUE) / (x_positive))
+    ((x_positive) >= 1 && (a_positive) >= (MAX_VALUE) / (double)(x_positive))
 
 #define __UC_ERR_IS_OVERFLOW_LARGE_NEG_MULT(a_negative, x_negative, MAX_VALUE) \
-    ((a_negative) < (MAX_VALUE) / (x_negative))
+    ((x_negative) <= -1 && (a_negative) <= (MAX_VALUE) / (double)(x_negative))
 
 #define __UC_ERR_IS_OVERFLOW_SMALL_NEG_POS_MULT(a_negative, x_positive, MIN_VALUE) \
-    ((x_positive) && (a_negative) < (MIN_VALUE) / (x_positive))
+    ((x_positive) >= 1 && (a_negative) <= (MIN_VALUE) / (double)(x_positive))
 
 #define __UC_ERR_MULT_IS_NEGATIVE(a, x) (\
     ((a) < 0 && (x) > 0) ||\
