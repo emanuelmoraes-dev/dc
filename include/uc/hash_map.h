@@ -5,24 +5,25 @@
 #include "uc/tags.h"
 #include <stdbool.h>
 
+#define UC_HASH_MAP_SIZE_FACTOR (0.7)
+
 typedef struct key_value {
 	owner char* key;
 	void* value;
 } KeyValue;
 
 typedef struct hash_map {
-	unsigned int size;
-	unsigned int capacity;
+	int size;
+	int capacity;
 	owner KeyValue* data;
 } HashMap;
 
 typedef struct hash_map_iterator {
-	unsigned int index;
-	bool __reseted;
+	int index;
 } HashMapIterator;
 
 void key_value_init(KeyValue* key_value, move char* key, share void* value);
-c_err hash_map_init(HashMap* hash_map, unsigned int capacity);
+c_err hash_map_init(HashMap* hash_map, int capacity);
 void hash_map_clear(HashMap* hash_map, void (*value_free)(void* value));
 void hash_map_free(HashMap* hash_map, void (*value_free)(void* value));
 bool hash_map_contains(const HashMap* hash_map, const char* key);
