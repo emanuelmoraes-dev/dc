@@ -11,19 +11,18 @@ void content_free(Content* content) {
 	hash_map_free(&content->odds_graph, __odds_deps_free);
 }
 
-void __sentence_list_free(void* value) {
+void __sentences_free(void* value) {
 	if (value == NULL) {
 		return;
 	}
 
 	owner Sentences* sentences = (Sentences*) value;
-	share Content* content = sentences->content;
 
-	if (content != NULL && sentences->list != NULL) {
+	if (sentences->list != NULL) {
 		owner char** list = sentences->list;
-		int alphabet_size = MAX(content->alphabet_size, 0);
+		int size = MAX(sentences->size, 0);
 
-		for (int i = 0; i < alphabet_size; ++i) {
+		for (int i = 0; i < size; ++i) {
 			owner char* sentence = list[i];
 
 			if (sentence != NULL) {
@@ -34,6 +33,7 @@ void __sentence_list_free(void* value) {
 
 		free(list);
 		sentences->list = NULL;
+		sentences->size = 0;
 	}
 
 	free(sentences);

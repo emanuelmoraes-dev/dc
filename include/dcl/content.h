@@ -13,7 +13,7 @@ typedef struct content {
 } Content;
 
 typedef struct sentences {
-    share Content* content;
+    int size;
     owner char** list;
 } Sentences;
 
