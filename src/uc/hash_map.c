@@ -65,7 +65,7 @@ void hash_map_free(HashMap* hash_map, void (*value_free)(void* value)) {
 }
 
 int __key_hash(const char* key, int capacity) {
-    int hash = 0;
+    unsigned int hash = 0;
     while (*key) {
         hash = (hash * 31) + (*key++);
     }
@@ -235,7 +235,7 @@ c_err hash_map_next(const HashMap* hash_map, HashMapIterator* iterator) {
 	return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
 }
 
-c_err hash_map_share_key_value(const HashMap* hash_map, const HashMapIterator* iterator, share char** key, share void** value) {
+c_err hash_map_borrow_key_value(const HashMap* hash_map, const HashMapIterator* iterator, borrow char** key, borrow void** value) {
 	int index = iterator->index;
 	if (index < 0 || index >= hash_map->capacity) {
 		return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);

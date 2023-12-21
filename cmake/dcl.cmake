@@ -5,7 +5,11 @@ add_library(
         src/dcl/errors/base.c
         src/dcl/errors/alloc.c
         src/dcl/errors/index_out.c
+        src/dcl/errors/null.c
+        src/dcl/errors/not_found.c
         src/dcl/content/content_init.c
+        src/dcl/content/content_alphabet.c
+        src/dcl/content/content_graph.c
         src/dcl/content/content_free.c
 )
 

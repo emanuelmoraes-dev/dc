@@ -9,7 +9,7 @@
 
 typedef struct key_value {
 	owner char* key;
-	void* value;
+	borrow void* value;
 } KeyValue;
 
 typedef struct hash_map {
@@ -33,6 +33,6 @@ void* hash_map_remove(HashMap* hash_map, const char* key);
 void hash_map_make_iterator(const HashMap* hash_map, HashMapIterator* iterator);
 bool hash_map_has_next(const HashMap* hash_map, const HashMapIterator* iterator);
 c_err hash_map_next(const HashMap* hash_map, HashMapIterator* iterator);
-c_err hash_map_share_key_value(const HashMap* hash_map, const HashMapIterator* iterator, share char** key, share void** value);
+c_err hash_map_borrow_key_value(const HashMap* hash_map, const HashMapIterator* iterator, borrow char** key, borrow void** value);
 
 #endif

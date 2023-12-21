@@ -15,8 +15,8 @@
 #define DCL_ERR_ARG_ALLOC_ODDS_GRAPH (2)
 #define DCL_ERR_ARG_MESSAGE_ALLOC_ODDS_GRAPH "Odds Graph"
 
-#define DCL_ERR_ARG_ALLOC_SENTENCE (3)
-#define DCL_ERR_ARG_MESSAGE_ALLOC_SENTENCE "Sentence"
+#define DCL_ERR_ARG_ALLOC_SENTENCES (3)
+#define DCL_ERR_ARG_MESSAGE_ALLOC_SENTENCES "Sentences"
 
 size_t dcl_err_arg_strlen_alloc(int arg);
 errno_t dcl_err_arg_strcat_s_alloc(int arg, char* message, rsize_t size);
