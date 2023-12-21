@@ -12,7 +12,17 @@ typedef struct content {
     HashMap odds_graph;
 } Content;
 
+typedef struct sentences {
+    share Content* content;
+    owner char** list;
+} Sentences;
+
+typedef struct odds {
+    share Content* content;
+    owner float** graph;
+} Odds;
+
 c_err content_init(Content* content, int alphabet_size, int keys_size);
-c_err content_free(Content* content);
+void content_free(Content* content);
 
 #endif

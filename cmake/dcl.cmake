@@ -6,6 +6,7 @@ add_library(
         src/dcl/errors/alloc.c
         src/dcl/errors/index_out.c
         src/dcl/content/content_init.c
+        src/dcl/content/content_free.c
 )
 
 set_target_properties(dcl PROPERTIES VERSION 0.0.1)
