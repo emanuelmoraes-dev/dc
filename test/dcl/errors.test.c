@@ -15,7 +15,7 @@ void test_dcl_errors() {
 }
 
 void __test_dcl_errors_alloc() {
-	c_err e1 = DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_ALPHABET);
+	c_err e1 = DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_ODDS);
     size_t l1 = dcl_err_strlen(e1);
 
     if (l1 == 31) {

@@ -2,18 +2,28 @@
 #include "uc/math_util.h"
 #include <stdlib.h>
 
+bool content_alphabet_contains_key(const Content* content, const char* key) {
+	if (key == NULL) {
+		return false;
+	}
+
+	return hash_map_contains(&content->alphabet, key);
+}
+
 c_err content_alphabet_set_key(Content* content, move char* key) {
 	if (key == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_ALPHABET_KEY);
 	}
 
-	if (hash_map_contains(&content->alphabet, key)) {
+	if (content_alphabet_contains_key(content, key)) {
+		free(key);
 		return C_OK;
 	}
 
 	Sentences* sentences = (Sentences*) malloc(sizeof(Sentences));
 
 	if (sentences == NULL) {
+		free(key);
 		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_SENTENCES);
 	}
 
@@ -21,6 +31,8 @@ c_err content_alphabet_set_key(Content* content, move char* key) {
 	sentences->list = (char**) malloc(sizeof(char*) * content->alphabet_size);
 
 	if (sentences->list == NULL) {
+		free(sentences);
+		free(key);
 		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_SENTENCES);
 	}
 
@@ -28,17 +40,11 @@ c_err content_alphabet_set_key(Content* content, move char* key) {
 
 	if (error != C_OK && !hash_map_contains(&content->alphabet, key)) {
 		free(sentences->list);
+		free(sentences);
+		free(key);
 	}
 
 	return error;
-}
-
-bool content_alphabet_contains_key(const Content* content, const char* key) {
-	if (key == NULL) {
-		return false;
-	}
-
-	return hash_map_contains(&content->alphabet, key);
 }
 
 c_err content_alphabet_add_sentence(Content* content, const char* key, move char* sentence) {
@@ -72,7 +78,7 @@ c_err content_alphabet_add_sentence(Content* content, const char* key, move char
 	return C_OK;
 }
 
-c_err content_alphabet_borrow_sentences(Content* content, const char* key, borrow Sentences* sentences) {
+c_err content_alphabet_borrow_sentences(const Content* content, const char* key, borrow Sentences* sentences) {
 	if (key == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_ALPHABET_KEY);
 	}

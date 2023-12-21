@@ -4,6 +4,11 @@ size_t dcl_err_arg_strlen_not_found(int arg) {
 	switch(arg) {
 	case DCL_ERR_ARG_NOT_FOUND_ALPHABET_KEY: return strlen(DCL_ERR_ARG_MESSAGE_NOT_FOUND_ALPHABET_KEY);
 	case DCL_ERR_ARG_NOT_FOUND_ALPHABET_SENTENCES: return strlen(DCL_ERR_ARG_MESSAGE_NOT_FOUND_ALPHABET_SENTENCES);
+	case DCL_ERR_ARG_NOT_FOUND_GRAPH_KEY: return strlen(DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH_KEY);
+	case DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP: return strlen(DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH_DEP);
+	case DCL_ERR_ARG_NOT_FOUND_ODDS: return strlen(DCL_ERR_ARG_MESSAGE_NOT_FOUND_ODDS);
+	case DCL_ERR_ARG_NOT_FOUND_GRAPH: return strlen(DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH);
+	case DCL_ERR_ARG_NOT_FOUND_GRAPH_NODE: return strlen(DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH_NODE);
 	default: return strlen("Unexpected");
 	}
 }
@@ -12,6 +17,11 @@ errno_t dcl_err_arg_strcat_s_not_found(int arg, char* message, rsize_t size) {
 	switch(arg) {
 	case DCL_ERR_ARG_NOT_FOUND_ALPHABET_KEY: return strcat_s(message, size, DCL_ERR_ARG_MESSAGE_NOT_FOUND_ALPHABET_KEY);
 	case DCL_ERR_ARG_NOT_FOUND_ALPHABET_SENTENCES: return strcat_s(message, size, DCL_ERR_ARG_MESSAGE_NOT_FOUND_ALPHABET_SENTENCES);
+	case DCL_ERR_ARG_NOT_FOUND_GRAPH_KEY: return strcat_s(message, size, DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH_KEY);
+	case DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP: return strcat_s(message, size, DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH_DEP);
+	case DCL_ERR_ARG_NOT_FOUND_ODDS: return strcat_s(message, size, DCL_ERR_ARG_MESSAGE_NOT_FOUND_ODDS);
+	case DCL_ERR_ARG_NOT_FOUND_GRAPH: return strcat_s(message, size, DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH);
+	case DCL_ERR_ARG_NOT_FOUND_GRAPH_NODE: return strcat_s(message, size, DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH_NODE);
 	default: return strcat_s(message, size, "Unexpected");
 	}
 }

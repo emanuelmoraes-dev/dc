@@ -4,6 +4,7 @@ size_t dcl_err_arg_strlen_null(int arg) {
 	switch(arg) {
 	case DCL_ERR_ARG_NULL_ALPHABET_KEY: return strlen(DCL_ERR_ARG_MESSAGE_NULL_ALPHABET_KEY);
 	case DCL_ERR_ARG_NULL_ALPHABET_SENTENCE: return strlen(DCL_ERR_ARG_MESSAGE_NULL_ALPHABET_SENTENCE);
+	case DCL_ERR_ARG_NULL_GRAPH_KEY: return strlen(DCL_ERR_ARG_MESSAGE_NULL_GRAPH_KEY);
 	default: return strlen("Unexpected");
 	}
 }
@@ -12,6 +13,7 @@ errno_t dcl_err_arg_strcat_s_null(int arg, char* message, rsize_t size) {
 	switch(arg) {
 	case DCL_ERR_ARG_NULL_ALPHABET_KEY: return strcpy_s(message, size, DCL_ERR_ARG_MESSAGE_NULL_ALPHABET_KEY);
 	case DCL_ERR_ARG_NULL_ALPHABET_SENTENCE: return strcpy_s(message, size, DCL_ERR_ARG_MESSAGE_NULL_ALPHABET_SENTENCE);
+	case DCL_ERR_ARG_NULL_GRAPH_KEY: return strcpy_s(message, size, DCL_ERR_ARG_MESSAGE_NULL_GRAPH_KEY);
 	default: return strcpy_s(message, size, "Unexpected");
 	}
 }

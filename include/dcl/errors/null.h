@@ -15,6 +15,9 @@
 #define DCL_ERR_ARG_NULL_ALPHABET_SENTENCE (2)
 #define DCL_ERR_ARG_MESSAGE_NULL_ALPHABET_SENTENCE "Alphabet Sentence"
 
+#define DCL_ERR_ARG_NULL_GRAPH_KEY (3)
+#define DCL_ERR_ARG_MESSAGE_NULL_GRAPH_KEY "Graph Key"
+
 size_t dcl_err_arg_strlen_null(int arg);
 errno_t dcl_err_arg_strcat_s_null(int arg, char* message, rsize_t size);
 

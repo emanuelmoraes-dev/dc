@@ -1,9 +1,6 @@
 #include "dcl/content.h"
 #include <limits.h>
 
-#define CONTENT_CAPACITY_FACTOR (3)
-#define HASH_MAP_CAPACITY_FACTOR (1 + UC_HASH_MAP_SIZE_FACTOR)
-
 c_err content_init(Content* content, int alphabet_size, int keys_size) {
 	content->alphabet_size = alphabet_size;
 	content->keys_size = keys_size;

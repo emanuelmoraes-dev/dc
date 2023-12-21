@@ -15,6 +15,21 @@
 #define DCL_ERR_ARG_NOT_FOUND_ALPHABET_SENTENCES (2)
 #define DCL_ERR_ARG_MESSAGE_NOT_FOUND_ALPHABET_SENTENCES "Alphabet Sentences"
 
+#define DCL_ERR_ARG_NOT_FOUND_GRAPH_KEY (3)
+#define DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH_KEY "Graph Key"
+
+#define DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP (4)
+#define DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH_DEP "Graph Dep"
+
+#define DCL_ERR_ARG_NOT_FOUND_ODDS (5)
+#define DCL_ERR_ARG_MESSAGE_NOT_FOUND_ODDS "Odds"
+
+#define DCL_ERR_ARG_NOT_FOUND_GRAPH (6)
+#define DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH "Graph"
+
+#define DCL_ERR_ARG_NOT_FOUND_GRAPH_NODE (7)
+#define DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH_NODE "Graph Node"
+
 size_t dcl_err_arg_strlen_not_found(int arg);
 errno_t dcl_err_arg_strcat_s_not_found(int arg, char* message, rsize_t size);
 
