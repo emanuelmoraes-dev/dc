@@ -38,15 +38,20 @@ c_err hash_map_init(HashMap* hash_map, int capacity) {
 void hash_map_clear(HashMap* hash_map, void (*value_free)(void* value)) {
 	KeyValue* data = hash_map->data;
 	int capacity = hash_map->capacity;
+
 	if (data == NULL) {
 		return;
 	}
-
 	
 	for (int i = 0; i < capacity; ++i) {
-		free(data[i].key);
-		if (value_free != NULL) {
+		if (data[i].key != NULL) {
+			free(data[i].key);
+			data[i].key = NULL;
+		}
+
+		if (data[i].value != NULL && value_free != NULL) {
 			value_free(data[i].value);
+			data[i].value = NULL;
 		}
 	}
 }
@@ -55,6 +60,7 @@ void hash_map_free(HashMap* hash_map, void (*value_free)(void* value)) {
 	hash_map_clear(hash_map, value_free);
 	if (hash_map->data != NULL) {
 		free(hash_map->data);
+		hash_map->data = NULL;
 	}
 }
 
