@@ -9,7 +9,7 @@
 
 typedef struct key_value {
 	owner char* key;
-	borrow void* value;
+	share void* value;
 } KeyValue;
 
 typedef struct hash_map {
