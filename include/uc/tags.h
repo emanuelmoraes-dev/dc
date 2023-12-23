@@ -3,7 +3,6 @@
 
 #define owner
 #define share
-#define move
 #define borrow
 
 #endif

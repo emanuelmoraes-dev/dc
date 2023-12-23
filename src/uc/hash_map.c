@@ -4,7 +4,7 @@
 #include <limits.h>
 #include "uc/hash_map.h"
 
-void key_value_init(KeyValue* key_value, move char* key, share void* value) {
+void key_value_init(KeyValue* key_value, owner char* key, share void* value) {
 	key_value->key = key;
 	key_value->value = value;
 }
@@ -90,7 +90,7 @@ bool hash_map_contains(const HashMap* hash_map, const char* key) {
 	return __hash_map_index(hash_map, key) >= 0;
 }
 
-bool __hash_map_set(HashMap* hash_map, move char* key, share void* value) {
+bool __hash_map_set(HashMap* hash_map, owner char* key, share void* value) {
 	int index = __hash_map_index(hash_map, key);
 
 	if (index >= 0) {
@@ -144,7 +144,7 @@ c_err __hash_map_realloc(HashMap* hash_map) {
 	return C_OK;
 }
 
-c_err hash_map_insert(HashMap* hash_map, move char* key, share void* value) {
+c_err hash_map_insert(HashMap* hash_map, owner char* key, share void* value) {
 	bool inserted = __hash_map_set(hash_map, key, value);
 
 	if (hash_map->size > hash_map->capacity * UC_HASH_MAP_SIZE_FACTOR) {
@@ -172,7 +172,7 @@ void* hash_map_get(const HashMap* hash_map, const char* key) {
 	return hash_map->data[index].value;
 }
 
-void* hash_map_remove(HashMap* hash_map, const char* key) {
+void* hash_map_reowner(HashMap* hash_map, const char* key) {
 	int index = __hash_map_index(hash_map, key);
 
 	if (index < 0) {

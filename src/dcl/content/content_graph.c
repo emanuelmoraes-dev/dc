@@ -10,7 +10,7 @@ bool content_graph_contains_key1(const Content* content, const char* key1) {
 	return hash_map_contains(&content->odds_graph, key1);
 }
 
-c_err content_graph_set_key1(Content* content, move char* key1) {
+c_err content_graph_set_key1(Content* content, owner char* key1) {
 	if (key1 == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
@@ -89,7 +89,7 @@ void __graph_free(float** graph, int size) {
 	free(graph);
 }
 
-c_err content_graph_set_key2(Content* content, const char* key1, move char* key2) {
+c_err content_graph_set_key2(Content* content, const char* key1, owner char* key2) {
 	if (key2 == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}

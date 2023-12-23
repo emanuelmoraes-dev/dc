@@ -10,7 +10,7 @@ bool content_alphabet_contains_key(const Content* content, const char* key) {
 	return hash_map_contains(&content->alphabet, key);
 }
 
-c_err content_alphabet_set_key(Content* content, move char* key) {
+c_err content_alphabet_set_key(Content* content, owner char* key) {
 	if (key == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_ALPHABET_KEY);
 	}
@@ -47,7 +47,7 @@ c_err content_alphabet_set_key(Content* content, move char* key) {
 	return error;
 }
 
-c_err content_alphabet_add_sentence(Content* content, const char* key, move char* sentence) {
+c_err content_alphabet_add_sentence(Content* content, const char* key, owner char* sentence) {
 	if (key == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_ALPHABET_KEY);
 	}
