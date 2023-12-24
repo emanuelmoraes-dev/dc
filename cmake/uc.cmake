@@ -11,6 +11,7 @@ add_library(
 		src/uc/hash_map.c
 		src/uc/array.c
 		src/uc/quick_sort.c
+		src/uc/linked_list.c
 )
 
 set_target_properties(uc PROPERTIES VERSION 0.0.1)

@@ -12,6 +12,12 @@
 #define UC_ERR_ARG_ALLOC_HASH_MAP_DATA (1)
 #define UC_ERR_ARG_MESSAGE_ALLOC_HASH_MAP_DATA "Hash Map Data"
 
+#define UC_ERR_ARG_ALLOC_LINKED_LIST_HEAD (2)
+#define UC_ERR_ARG_MESSAGE_ALLOC_LINKED_LIST_HEAD "Linked List Head"
+
+#define UC_ERR_ARG_ALLOC_LINKED_LIST_NEW_ELEMENT (3)
+#define UC_ERR_ARG_MESSAGE_ALLOC_LINKED_LIST_NEW_ELEMENT "Linked List New Element"
+
 size_t uc_err_arg_strlen_alloc(int arg);
 errno_t uc_err_arg_strcat_s_alloc(int arg, char* message, rsize_t size);
 
