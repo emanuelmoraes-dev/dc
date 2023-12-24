@@ -1,27 +1,27 @@
 #include "uc/quick_sort.h"
 
-void uc_list_quick_sort(UcList* list, int begin, int size) {
+void uc_array_quick_sort(UcArray* array, int begin, int size) {
 	if (size < 2 || begin < 0 || begin >= size) {
 		return;
 	}
 
-	if (size > list->size) {
-		size = list->size;
+	if (size > array->size) {
+		size = array->size;
 	}
 
 	int end = begin + size;
 	int pv = (begin + end) / 2;
-	list->swp_by_idx(list->data, pv, end - 1);
+	array->swp_by_idx(array->data, pv, array->data, end - 1);
 	pv = end - 1;
 
 	int i = begin;
 	while (i < pv) {
-		if (list->cmp_by_idx(list->data, i, pv) > 0) {
-			list->swp_by_idx(list->data, pv-1, pv);
+		if (array->cmp_by_idx(array->data, i, array->data, pv) > 0) {
+			array->swp_by_idx(array->data, pv-1, array->data, pv);
 			pv--;
 
 			if (pv - i > 0) {
-				list->swp_by_idx(list->data, i, pv+1);
+				array->swp_by_idx(array->data, i, array->data, pv+1);
 			}
 
 			continue;
@@ -30,6 +30,6 @@ void uc_list_quick_sort(UcList* list, int begin, int size) {
 		i++;
 	}
 
-	uc_list_quick_sort(list, begin, pv - begin);
-	uc_list_quick_sort(list, pv + 1, end - (pv + 1));
+	uc_array_quick_sort(array, begin, pv - begin);
+	uc_array_quick_sort(array, pv + 1, end - (pv + 1));
 }

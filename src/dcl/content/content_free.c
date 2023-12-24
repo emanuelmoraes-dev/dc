@@ -18,21 +18,21 @@ void __sentences_free(void* value) {
 
 	owner DclSentences* sentences = (DclSentences*) value;
 
-	if (sentences->list != NULL) {
-		owner char** list = sentences->list;
+	if (sentences->array != NULL) {
+		owner char** array = sentences->array;
 		int size = MAX(sentences->size, 0);
 
 		for (int i = 0; i < size; ++i) {
-			owner char* sentence = list[i];
+			owner char* sentence = array[i];
 
 			if (sentence != NULL) {
 				free(sentence);
-				list[i] = NULL;
+				array[i] = NULL;
 			}
 		}
 
-		free(list);
-		sentences->list = NULL;
+		free(array);
+		sentences->array = NULL;
 		sentences->size = 0;
 	}
 

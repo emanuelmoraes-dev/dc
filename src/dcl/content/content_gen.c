@@ -9,7 +9,7 @@ typedef struct float_entry {
 } FloatEntry;
 
 c_err __float_entries(borrow FloatEntry** entries, float* data, int size);
-void __list_init_float_entry(UcList* list, FloatEntry* data, int size);
+void __array_init_float_entry(UcArray* array, FloatEntry* data, int size);
 
 c_err dcl_content_gen(const DclContent* content, borrow UcHashMap* dcl_sentences_by_keys1, DclGenInput* gen_input) {
 	return C_OK;
@@ -30,24 +30,26 @@ c_err __float_entries(borrow FloatEntry** entries, float* data, int size) {
 	return C_OK;
 }
 
-int __list_cmp_by_idx_float_entry(void* data, int idx1, int idx2);
-void __list_swp_by_idx_float_entry(void* data, int idx1, int idx2);
+int __array_cmp_by_idx_float_entry(void* data1, int idx1, void* data2, int idx2);
+void __array_swp_by_idx_float_entry(void* data1, int idx1, void* data2, int idx2);
 
-void __list_init_float_entry(UcList* list, FloatEntry* data, int size) {
-	list->data = (void*) data;
-	list->size = size;
-	list->cmp_by_idx = __list_cmp_by_idx_float_entry;
-	list->swp_by_idx = __list_swp_by_idx_float_entry;
+void __array_init_float_entry(UcArray* array, FloatEntry* data, int size) {
+	array->data = (void*) data;
+	array->size = size;
+	array->cmp_by_idx = __array_cmp_by_idx_float_entry;
+	array->swp_by_idx = __array_swp_by_idx_float_entry;
 }
 
-int __list_cmp_by_idx_float_entry(void* data, int idx1, int idx2) {
-	FloatEntry* entries = (FloatEntry*) data;
-	return entries[idx1].value < entries[idx2].value ? -1 : 0;
+int __array_cmp_by_idx_float_entry(void* data1, int idx1, void* data2, int idx2) {
+	FloatEntry* entries1 = (FloatEntry*) data1;
+	FloatEntry* entries2 = (FloatEntry*) data2;
+	return entries1[idx1].value < entries2[idx2].value ? -1 : 0;
 }
 
-void __list_swp_by_idx_float_entry(void* data, int idx1, int idx2) {
-	FloatEntry* entries = (FloatEntry*) data;
-	FloatEntry aux = entries[idx1];
-	entries[idx1] = entries[idx2];
-	entries[idx2] = aux;
+void __array_swp_by_idx_float_entry(void* data1, int idx1, void* data2, int idx2) {
+	FloatEntry* entries1 = (FloatEntry*) data1;
+	FloatEntry* entries2 = (FloatEntry*) data2;
+	FloatEntry aux = entries1[idx1];
+	entries1[idx1] = entries2[idx2];
+	entries2[idx2] = aux;
 }

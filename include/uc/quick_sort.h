@@ -1,8 +1,8 @@
 #ifndef UC_QUICK_SORT_H_INCLUDED
 #define UC_QUICK_SORT_H_INCLUDED
 
-#include "uc/list.h"
+#include "uc/array.h"
 
-void uc_list_quick_sort(UcList* list, int idx_begin, int size);
+void uc_array_quick_sort(UcArray* array, int idx_begin, int size);
 
 #endif

@@ -9,7 +9,7 @@ add_library(
 		src/uc/errors/empty.c
 		src/uc/errors/overflow.c
 		src/uc/hash_map.c
-		src/uc/list.c
+		src/uc/array.c
 		src/uc/quick_sort.c
 )
 

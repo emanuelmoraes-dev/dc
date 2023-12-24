@@ -18,7 +18,7 @@ typedef struct dcl_content {
 
 typedef struct dcl_sentences {
     int size;
-    owner char** list;
+    owner char** array;
 } DclSentences;
 
 typedef struct dcl_odds {
