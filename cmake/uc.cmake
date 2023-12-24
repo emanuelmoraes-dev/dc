@@ -9,6 +9,8 @@ add_library(
 		src/uc/errors/empty.c
 		src/uc/errors/overflow.c
 		src/uc/hash_map.c
+		src/uc/list.c
+		src/uc/quick_sort.c
 )
 
 set_target_properties(uc PROPERTIES VERSION 0.0.1)
