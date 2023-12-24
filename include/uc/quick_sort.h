@@ -3,6 +3,6 @@
 
 #include "uc/list.h"
 
-void list_quick_sort(List* list, int idx_begin, int size);
+void uc_list_quick_sort(UcList* list, int idx_begin, int size);
 
 #endif

@@ -6,9 +6,9 @@ void __sentences_free(void* value);
 void __odds_deps_free(void* value);
 void __odds_free(void* value);
 
-void content_free(Content* content) {
-	hash_map_free(&content->alphabet, __sentences_free);
-	hash_map_free(&content->odds_graph, __odds_deps_free);
+void dcl_content_free(DclContent* content) {
+	uc_hash_map_free(&content->alphabet, __sentences_free);
+	uc_hash_map_free(&content->odds_graph, __odds_deps_free);
 }
 
 void __sentences_free(void* value) {
@@ -16,7 +16,7 @@ void __sentences_free(void* value) {
 		return;
 	}
 
-	owner Sentences* sentences = (Sentences*) value;
+	owner DclSentences* sentences = (DclSentences*) value;
 
 	if (sentences->list != NULL) {
 		owner char** list = sentences->list;
@@ -44,8 +44,8 @@ void __odds_deps_free(void* value) {
 		return;
 	}
 
-	owner HashMap* odds_deps = (HashMap*) value;
-	hash_map_free(odds_deps, __odds_free);
+	owner UcHashMap* odds_deps = (UcHashMap*) value;
+	uc_hash_map_free(odds_deps, __odds_free);
 	free(odds_deps);
 }
 
@@ -54,8 +54,8 @@ void __odds_free(void* value) {
 		return;
 	}
 
-	owner Odds* odds = (Odds*) value;
-	share Content* content = odds->content;
+	owner DclOdds* odds = (DclOdds*) value;
+	share DclContent* content = odds->content;
 
 	if (content != NULL && odds->graph != NULL) {
 		owner float** graph = odds->graph;

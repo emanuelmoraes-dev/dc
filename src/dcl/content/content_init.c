@@ -1,7 +1,7 @@
 #include "dcl/content.h"
 #include <limits.h>
 
-c_err content_init(Content* content, int alphabet_size, int keys_size) {
+c_err dcl_content_init(DclContent* content, int alphabet_size, int keys_size) {
 	content->alphabet_size = alphabet_size;
 	content->keys_size = keys_size;
 
@@ -15,17 +15,17 @@ c_err content_init(Content* content, int alphabet_size, int keys_size) {
 		capacity = keys_size;
 	}
 
-	c_err error = hash_map_init(&content->alphabet, capacity);
+	c_err error = uc_hash_map_init(&content->alphabet, capacity);
 
 	if (error != C_OK) {
-		content_free(content);
+		dcl_content_free(content);
 		return error;
 	}
 
-	error = hash_map_init(&content->odds_graph, keys_size);
+	error = uc_hash_map_init(&content->odds_graph, keys_size);
 
 	if (error != C_OK) {
-		content_free(content);
+		dcl_content_free(content);
 		return error;
 	}
 

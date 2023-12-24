@@ -4,29 +4,29 @@
 #include <limits.h>
 #include "uc/hash_map.h"
 
-void key_value_init(KeyValue* key_value, owner char* key, share void* value) {
+void uc_key_value_init(UcKeyValue* key_value, owner char* key, share void* value) {
 	key_value->key = key;
 	key_value->value = value;
 }
 
-KeyValue* __hash_map_new_data(int capacity) {
-	KeyValue* data = (KeyValue*) malloc(sizeof(KeyValue) * capacity);
+UcKeyValue* __uc_hash_map_new_data(int capacity) {
+	UcKeyValue* data = (UcKeyValue*) malloc(sizeof(UcKeyValue) * capacity);
 
 	if (data == NULL) {
 		return NULL;
 	}
 
 	for (int i = 0; i < capacity; ++i) {
-		key_value_init(&data[i], NULL, NULL);
+		uc_key_value_init(&data[i], NULL, NULL);
 	}
 
 	return data;
 }
 
-c_err hash_map_init(HashMap* hash_map, int capacity) {
+c_err uc_hash_map_init(UcHashMap* hash_map, int capacity) {
 	hash_map->size = 0;
 	hash_map->capacity = capacity;
-	hash_map->data = __hash_map_new_data(capacity);
+	hash_map->data = __uc_hash_map_new_data(capacity);
 
 	if (hash_map->data == NULL) {
 		return UC_ERR_THROW_ALLOC(UC_ERR_ARG_ALLOC_HASH_MAP_DATA);
@@ -35,8 +35,8 @@ c_err hash_map_init(HashMap* hash_map, int capacity) {
 	return C_OK;
 }
 
-void hash_map_clear(HashMap* hash_map, void (*value_free)(void* value)) {
-	KeyValue* data = hash_map->data;
+void uc_hash_map_clear(UcHashMap* hash_map, void (*value_free)(void* value)) {
+	UcKeyValue* data = hash_map->data;
 	int capacity = hash_map->capacity;
 
 	if (data == NULL) {
@@ -56,8 +56,8 @@ void hash_map_clear(HashMap* hash_map, void (*value_free)(void* value)) {
 	}
 }
 
-void hash_map_free(HashMap* hash_map, void (*value_free)(void* value)) {
-	hash_map_clear(hash_map, value_free);
+void uc_hash_map_free(UcHashMap* hash_map, void (*value_free)(void* value)) {
+	uc_hash_map_clear(hash_map, value_free);
 	if (hash_map->data != NULL) {
 		free(hash_map->data);
 		hash_map->data = NULL;
@@ -72,7 +72,7 @@ int __key_hash(const char* key, int capacity) {
     return hash % capacity;
 }
 
-int __hash_map_index(const HashMap* hash_map, const char* key) {
+int __uc_hash_map_index(const UcHashMap* hash_map, const char* key) {
 	int capacity = hash_map->capacity;
 	int index = __key_hash(key, capacity);
 
@@ -86,12 +86,12 @@ int __hash_map_index(const HashMap* hash_map, const char* key) {
 	return -1;
 }
 
-bool hash_map_contains(const HashMap* hash_map, const char* key) {
-	return __hash_map_index(hash_map, key) >= 0;
+bool uc_hash_map_contains(const UcHashMap* hash_map, const char* key) {
+	return __uc_hash_map_index(hash_map, key) >= 0;
 }
 
-bool __hash_map_set(HashMap* hash_map, owner char* key, share void* value) {
-	int index = __hash_map_index(hash_map, key);
+bool __uc_hash_map_set(UcHashMap* hash_map, owner char* key, share void* value) {
+	int index = __uc_hash_map_index(hash_map, key);
 
 	if (index >= 0) {
 		hash_map->data[index].value = value;
@@ -105,7 +105,7 @@ bool __hash_map_set(HashMap* hash_map, owner char* key, share void* value) {
 
 	for (int i = index; count < capacity; i = (i + 1) % capacity, ++count) {
 		if (hash_map->data[i].key == NULL) {
-			key_value_init(&hash_map->data[i], key, value);
+			uc_key_value_init(&hash_map->data[i], key, value);
 			inserted = true;
 			hash_map->size++;
 			break;
@@ -115,8 +115,8 @@ bool __hash_map_set(HashMap* hash_map, owner char* key, share void* value) {
 	return inserted;
 }
 
-c_err __hash_map_realloc(HashMap* hash_map) {
-	KeyValue* bk_data = hash_map->data;
+c_err __uc_hash_map_realloc(UcHashMap* hash_map) {
+	UcKeyValue* bk_data = hash_map->data;
 	int bk_capacity = hash_map->capacity;
 
 	if (UC_ERR_IS_OVERFLOW_LARGE_MULT(bk_capacity, 2, INT_MAX)) {
@@ -124,7 +124,7 @@ c_err __hash_map_realloc(HashMap* hash_map) {
 	}
 
 	int new_capacity = bk_capacity * 2;
-	KeyValue* new_data = __hash_map_new_data(new_capacity);
+	UcKeyValue* new_data = __uc_hash_map_new_data(new_capacity);
 
 	if (new_data == NULL) {
 		return UC_ERR_THROW_REALLOC(UC_ERR_ARG_REALLOC_HASH_MAP_DATA);
@@ -136,7 +136,7 @@ c_err __hash_map_realloc(HashMap* hash_map) {
 
 	for (int i = 0; i < bk_capacity; ++i) {
 		if (bk_data[i].key != NULL) {
-			__hash_map_set(hash_map, bk_data[i].key, bk_data[i].value);
+			__uc_hash_map_set(hash_map, bk_data[i].key, bk_data[i].value);
 		}
 	}
 
@@ -144,11 +144,11 @@ c_err __hash_map_realloc(HashMap* hash_map) {
 	return C_OK;
 }
 
-c_err hash_map_insert(HashMap* hash_map, owner char* key, share void* value) {
-	bool inserted = __hash_map_set(hash_map, key, value);
+c_err uc_hash_map_insert(UcHashMap* hash_map, owner char* key, share void* value) {
+	bool inserted = __uc_hash_map_set(hash_map, key, value);
 
 	if (hash_map->size > hash_map->capacity * UC_HASH_MAP_SIZE_FACTOR) {
-		c_err error = __hash_map_realloc(hash_map);
+		c_err error = __uc_hash_map_realloc(hash_map);
 
 		if (error != C_OK) {
 			return error;
@@ -156,14 +156,14 @@ c_err hash_map_insert(HashMap* hash_map, owner char* key, share void* value) {
 	}
 
 	if (!inserted) {
-		__hash_map_set(hash_map, key, value);
+		__uc_hash_map_set(hash_map, key, value);
 	}
 
 	return C_OK;
 }
 
-void* hash_map_get(const HashMap* hash_map, const char* key) {
-	int index = __hash_map_index(hash_map, key);
+void* uc_hash_map_get(const UcHashMap* hash_map, const char* key) {
+	int index = __uc_hash_map_index(hash_map, key);
 
 	if (index < 0) {
 		return NULL;
@@ -172,8 +172,8 @@ void* hash_map_get(const HashMap* hash_map, const char* key) {
 	return hash_map->data[index].value;
 }
 
-void* hash_map_reowner(HashMap* hash_map, const char* key) {
-	int index = __hash_map_index(hash_map, key);
+void* uc_hash_map_reowner(UcHashMap* hash_map, const char* key) {
+	int index = __uc_hash_map_index(hash_map, key);
 
 	if (index < 0) {
 		return NULL;
@@ -190,20 +190,20 @@ void* hash_map_reowner(HashMap* hash_map, const char* key) {
 	return value;
 }
 
-void hash_map_make_iterator(const HashMap* hash_map, HashMapIterator* iterator) {
+void uc_hash_map_make_iterator(const UcHashMap* hash_map, UcHashMapIterator* iterator) {
 	iterator->index = -1;
 }
 
-int __hash_map_next_index(const HashMapIterator* iterator) {
+int __uc_hash_map_next_index(const UcHashMapIterator* iterator) {
 	if (iterator->index < 0) {
 		return 0;
 	}
 	return iterator->index + 1;
 }
 
-bool hash_map_has_next(const HashMap* hash_map, const HashMapIterator* iterator) {
+bool uc_hash_map_has_next(const UcHashMap* hash_map, const UcHashMapIterator* iterator) {
 	int capacity = hash_map->capacity;
-	int index = __hash_map_next_index(iterator);
+	int index = __uc_hash_map_next_index(iterator);
 
 	if (index < 0 || index >= hash_map->capacity) {
 		return false;
@@ -218,9 +218,9 @@ bool hash_map_has_next(const HashMap* hash_map, const HashMapIterator* iterator)
 	return false;
 }
 
-c_err hash_map_next(const HashMap* hash_map, HashMapIterator* iterator) {
+c_err uc_hash_map_next(const UcHashMap* hash_map, UcHashMapIterator* iterator) {
 	int capacity = hash_map->capacity;
-	int index = __hash_map_next_index(iterator);
+	int index = __uc_hash_map_next_index(iterator);
 
 	if (index < 0 || index >= hash_map->capacity) {
 		return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
@@ -235,7 +235,7 @@ c_err hash_map_next(const HashMap* hash_map, HashMapIterator* iterator) {
 	return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
 }
 
-c_err hash_map_borrow_key_value(const HashMap* hash_map, const HashMapIterator* iterator, borrow char** key, borrow void** value) {
+c_err uc_hash_map_borrow_key_value(const UcHashMap* hash_map, const UcHashMapIterator* iterator, borrow char** key, borrow void** value) {
 	int index = iterator->index;
 	if (index < 0 || index >= hash_map->capacity) {
 		return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);

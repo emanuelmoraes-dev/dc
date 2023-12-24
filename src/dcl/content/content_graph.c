@@ -2,25 +2,25 @@
 #include <limits.h>
 #include <stdlib.h>
 
-bool content_graph_contains_key1(const Content* content, const char* key1) {
+bool dcl_content_graph_contains_key1(const DclContent* content, const char* key1) {
 	if (key1 == NULL) {
 		return false;
 	}
 
-	return hash_map_contains(&content->odds_graph, key1);
+	return uc_hash_map_contains(&content->odds_graph, key1);
 }
 
-c_err content_graph_set_key1(Content* content, owner char* key1) {
+c_err dcl_content_graph_set_key1(DclContent* content, owner char* key1) {
 	if (key1 == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
 
-	if (content_graph_contains_key1(content, key1)) {
+	if (dcl_content_graph_contains_key1(content, key1)) {
 		free(key1);
 		return C_OK;
 	}
 
-	HashMap* dep = (HashMap*) malloc(sizeof(HashMap));
+	UcHashMap* dep = (UcHashMap*) malloc(sizeof(UcHashMap));
 
 	if (dep == NULL) {
 		free(key1);
@@ -38,16 +38,16 @@ c_err content_graph_set_key1(Content* content, owner char* key1) {
 		capacity = keys_size;
 	}
 
-	c_err error = hash_map_init(dep, capacity);
+	c_err error = uc_hash_map_init(dep, capacity);
 
 	if (error != C_OK) {
 		free(dep);
 		free(key1);
 	}
 
-	error = hash_map_insert(&content->odds_graph, key1, dep);
+	error = uc_hash_map_insert(&content->odds_graph, key1, dep);
 
-	if (error != C_OK && !hash_map_contains(&content->odds_graph, key1)) {
+	if (error != C_OK && !uc_hash_map_contains(&content->odds_graph, key1)) {
 		free(dep);
 		free(key1);
 	}
@@ -55,22 +55,22 @@ c_err content_graph_set_key1(Content* content, owner char* key1) {
 	return error;
 }
 
-bool content_graph_contains_key2(const Content* content, const char* key1, const char* key2) {
+bool dcl_content_graph_contains_key2(const DclContent* content, const char* key1, const char* key2) {
 	if (key1 == NULL || key2 == NULL) {
 		return false;
 	}
 
-	if (!hash_map_contains(&content->odds_graph, key1)) {
+	if (!uc_hash_map_contains(&content->odds_graph, key1)) {
 		return false;
 	}
 
-	HashMap* dep = (HashMap*) hash_map_get(&content->odds_graph, key1);
+	UcHashMap* dep = (UcHashMap*) uc_hash_map_get(&content->odds_graph, key1);
 
 	if (dep == NULL) {
 		return false;
 	}
 
-	return hash_map_contains(dep, key2);
+	return uc_hash_map_contains(dep, key2);
 }
 
 void __graph_free(float** graph, int size) {
@@ -89,7 +89,7 @@ void __graph_free(float** graph, int size) {
 	free(graph);
 }
 
-c_err content_graph_set_key2(Content* content, const char* key1, owner char* key2) {
+c_err dcl_content_graph_set_key2(DclContent* content, const char* key1, owner char* key2) {
 	if (key2 == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
@@ -99,19 +99,19 @@ c_err content_graph_set_key2(Content* content, const char* key1, owner char* key
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
 
-	if (!content_graph_contains_key2(content, key1, key2)) {
+	if (!dcl_content_graph_contains_key2(content, key1, key2)) {
 		free(key2);
 		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_KEY);
 	}
 
-	HashMap* dep = (HashMap*) hash_map_get(&content->odds_graph, key1);
+	UcHashMap* dep = (UcHashMap*) uc_hash_map_get(&content->odds_graph, key1);
 
 	if (dep == NULL) {
 		free(key2);
 		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP);
 	}
 
-	Odds* odds = (Odds*) malloc(sizeof(Odds));
+	DclOdds* odds = (DclOdds*) malloc(sizeof(DclOdds));
 
 	if (odds == NULL) {
 		free(dep);
@@ -145,9 +145,9 @@ c_err content_graph_set_key2(Content* content, const char* key1, owner char* key
 		}
 	}
 
-	c_err error = hash_map_insert(dep, key2, odds);
+	c_err error = uc_hash_map_insert(dep, key2, odds);
 
-	if (error != C_OK && !hash_map_contains(dep, key2)) {
+	if (error != C_OK && !uc_hash_map_contains(dep, key2)) {
 		__graph_free(odds->graph, content->alphabet_size);
 		free(odds);
 		free(dep);
@@ -157,7 +157,7 @@ c_err content_graph_set_key2(Content* content, const char* key1, owner char* key
 	return error;
 }
 
-c_err content_graph_borrow_odds(const Content* content, const char* key1, const char* key2, borrow Odds* odds) {
+c_err dcl_content_graph_borrow_odds(const DclContent* content, const char* key1, const char* key2, borrow DclOdds* odds) {
 	if (key2 == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
@@ -166,17 +166,17 @@ c_err content_graph_borrow_odds(const Content* content, const char* key1, const 
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
 
-	if (!content_graph_contains_key2(content, key1, key2)) {
+	if (!dcl_content_graph_contains_key2(content, key1, key2)) {
 		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_KEY);
 	}
 
-	HashMap* dep = (HashMap*) hash_map_get(&content->odds_graph, key1);
+	UcHashMap* dep = (UcHashMap*) uc_hash_map_get(&content->odds_graph, key1);
 
 	if (dep == NULL) {
 		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP);
 	}
 
-	Odds* item = (Odds*) hash_map_get(dep, key2);
+	DclOdds* item = (DclOdds*) uc_hash_map_get(dep, key2);
 
 	if (item == NULL) {
 		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_ODDS);
@@ -187,13 +187,13 @@ c_err content_graph_borrow_odds(const Content* content, const char* key1, const 
 	return C_OK;
 }
 
-c_err content_graph_set_odds(Content* content, const char* key1, const char* key2, int index1, int index2, float odds_value) {
+c_err dcl_content_graph_set_odds(DclContent* content, const char* key1, const char* key2, int index1, int index2, float odds_value) {
 	if (index1 < 0 || index2 < 0 || index1 >= content->alphabet_size || index2 >= content->alphabet_size) {
 		return DCL_ERR_THROW_INDEX_OUT(DCL_ERR_ARG_INDEX_OUT_ODDS);
 	}
 
-	Odds odds;
-	c_err error = content_graph_borrow_odds(content, key1, key2, &odds);
+	DclOdds odds;
+	c_err error = dcl_content_graph_borrow_odds(content, key1, key2, &odds);
 
 	float** graph = odds.graph;
 

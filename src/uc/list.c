@@ -8,12 +8,12 @@
 	((type*)(data))[idx2] = aux_var
 
 #define __DEF_LIST_CMP_BY_IDX_NUM(typename, type) \
-	int __list_cmp_by_idx_##typename(void* data, int idx1, int idx2) {\
+	int __uc_list_cmp_by_idx_##typename(void* data, int idx1, int idx2) {\
 		return __LIST_CMP_BY_IDX_NUM(type, data, idx1, idx2);\
 	}
 
 #define __DEF_LIST_SWP_BY_IDX(typename, type) \
-	void __list_swp_by_idx_##typename(void* data, int idx1, int idx2) {\
+	void __uc_list_swp_by_idx_##typename(void* data, int idx1, int idx2) {\
 		type aux_var;\
 		__LIST_SWP_BY_IDX(type, data, idx1, idx2, aux_var);\
 	}
@@ -21,10 +21,10 @@
 #define __LIST_INIT(typename, list, data, size) \
 	list->data = (void*) data;\
 	list->size = size;\
-	list->cmp_by_idx = __list_cmp_by_idx_##typename;\
-	list->swp_by_idx = __list_swp_by_idx_##typename
+	list->cmp_by_idx = __uc_list_cmp_by_idx_##typename;\
+	list->swp_by_idx = __uc_list_swp_by_idx_##typename
 
-int __list_cmp_by_idx_str(void* data, int idx1, int idx2) {
+int __uc_list_cmp_by_idx_str(void* data, int idx1, int idx2) {
 	const char** array = (const char**) data;
 	const char* str1 = array[idx1];
 	const char* str2 = array[idx2];
@@ -72,58 +72,58 @@ __DEF_LIST_CMP_BY_IDX_NUM(ullong, unsigned long long)
 __DEF_LIST_SWP_BY_IDX(ullong, unsigned long long)
 
 
-void list_init_str(List* list, borrow char** data, int size) {
+void uc_list_init_str(UcList* list, borrow char** data, int size) {
 	__LIST_INIT(str, list, data, size);
 }
 
-void list_init_float(List* list, borrow float* data, int size) {
+void uc_list_init_float(UcList* list, borrow float* data, int size) {
 	__LIST_INIT(float, list, data, size);
 }
 
-void list_init_double(List* list, borrow double* data, int size) {
+void uc_list_init_double(UcList* list, borrow double* data, int size) {
 	__LIST_INIT(double, list, data, size);
 }
 
-void list_init_ldouble(List* list, borrow long double* data, int size) {
+void uc_list_init_ldouble(UcList* list, borrow long double* data, int size) {
 	__LIST_INIT(ldouble, list, data, size);
 }
 
-void list_init_char(List* list, borrow char* data, int size) {
+void uc_list_init_char(UcList* list, borrow char* data, int size) {
 	__LIST_INIT(char, list, data, size);
 }
 
-void list_init_short(List* list, borrow short* data, int size) {
+void uc_list_init_short(UcList* list, borrow short* data, int size) {
 	__LIST_INIT(short, list, data, size);
 }
 
-void list_init_int(List* list, borrow int* data, int size) {
+void uc_list_init_int(UcList* list, borrow int* data, int size) {
 	__LIST_INIT(int, list, data, size);
 }
 
-void list_init_long(List* list, borrow long* data, int size) {
+void uc_list_init_long(UcList* list, borrow long* data, int size) {
 	__LIST_INIT(long, list, data, size);
 }
 
-void list_init_llong(List* list, borrow long long* data, int size) {
+void uc_list_init_llong(UcList* list, borrow long long* data, int size) {
 	__LIST_INIT(llong, list, data, size);
 }
 
-void list_init_uchar(List* list, borrow unsigned char* data, int size) {
+void uc_list_init_uchar(UcList* list, borrow unsigned char* data, int size) {
 	__LIST_INIT(uchar, list, data, size);
 }
 
-void list_init_ushort(List* list, borrow unsigned short* data, int size) {
+void uc_list_init_ushort(UcList* list, borrow unsigned short* data, int size) {
 	__LIST_INIT(ushort, list, data, size);
 }
 
-void list_init_uint(List* list, borrow unsigned int* data, int size) {
+void uc_list_init_uint(UcList* list, borrow unsigned int* data, int size) {
 	__LIST_INIT(uint, list, data, size);
 }
 
-void list_init_ulong(List* list, borrow unsigned long* data, int size) {
+void uc_list_init_ulong(UcList* list, borrow unsigned long* data, int size) {
 	__LIST_INIT(ulong, list, data, size);
 }
 
-void list_init_ullong(List* list, borrow unsigned long long* data, int size) {
+void uc_list_init_ullong(UcList* list, borrow unsigned long long* data, int size) {
 	__LIST_INIT(ullong, list, data, size);
 }

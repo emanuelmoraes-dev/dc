@@ -2,25 +2,25 @@
 #include "uc/math_util.h"
 #include <stdlib.h>
 
-bool content_alphabet_contains_key(const Content* content, const char* key) {
+bool dcl_content_alphabet_contains_key(const DclContent* content, const char* key) {
 	if (key == NULL) {
 		return false;
 	}
 
-	return hash_map_contains(&content->alphabet, key);
+	return uc_hash_map_contains(&content->alphabet, key);
 }
 
-c_err content_alphabet_set_key(Content* content, owner char* key) {
+c_err dcl_content_alphabet_set_key(DclContent* content, owner char* key) {
 	if (key == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_ALPHABET_KEY);
 	}
 
-	if (content_alphabet_contains_key(content, key)) {
+	if (dcl_content_alphabet_contains_key(content, key)) {
 		free(key);
 		return C_OK;
 	}
 
-	Sentences* sentences = (Sentences*) malloc(sizeof(Sentences));
+	DclSentences* sentences = (DclSentences*) malloc(sizeof(DclSentences));
 
 	if (sentences == NULL) {
 		free(key);
@@ -36,9 +36,9 @@ c_err content_alphabet_set_key(Content* content, owner char* key) {
 		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_SENTENCES);
 	}
 
-	c_err error = hash_map_insert(&content->alphabet, key, sentences);
+	c_err error = uc_hash_map_insert(&content->alphabet, key, sentences);
 
-	if (error != C_OK && !hash_map_contains(&content->alphabet, key)) {
+	if (error != C_OK && !uc_hash_map_contains(&content->alphabet, key)) {
 		free(sentences->list);
 		free(sentences);
 		free(key);
@@ -47,7 +47,7 @@ c_err content_alphabet_set_key(Content* content, owner char* key) {
 	return error;
 }
 
-c_err content_alphabet_add_sentence(Content* content, const char* key, owner char* sentence) {
+c_err dcl_content_alphabet_add_sentence(DclContent* content, const char* key, owner char* sentence) {
 	if (key == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_ALPHABET_KEY);
 	}
@@ -56,11 +56,11 @@ c_err content_alphabet_add_sentence(Content* content, const char* key, owner cha
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_ALPHABET_SENTENCE);
 	}
 
-	if (!content_alphabet_contains_key(content, key)) {
+	if (!dcl_content_alphabet_contains_key(content, key)) {
 		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_ALPHABET_KEY);
 	}
 
-	Sentences* sentences = (Sentences*) hash_map_get(&content->alphabet, key);
+	DclSentences* sentences = (DclSentences*) uc_hash_map_get(&content->alphabet, key);
 
 	if (sentences == NULL || sentences->list == NULL) {
 		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_ALPHABET_SENTENCES);
@@ -78,16 +78,16 @@ c_err content_alphabet_add_sentence(Content* content, const char* key, owner cha
 	return C_OK;
 }
 
-c_err content_alphabet_borrow_sentences(const Content* content, const char* key, borrow Sentences* sentences) {
+c_err dcl_content_alphabet_borrow_sentences(const DclContent* content, const char* key, borrow DclSentences* sentences) {
 	if (key == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_ALPHABET_KEY);
 	}
 
-	if (!content_alphabet_contains_key(content, key)) {
+	if (!dcl_content_alphabet_contains_key(content, key)) {
 		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_ALPHABET_KEY);
 	}
 
-	Sentences* item = (Sentences*) hash_map_get(&content->alphabet, key);
+	DclSentences* item = (DclSentences*) uc_hash_map_get(&content->alphabet, key);
 
 	if (item == NULL) {
 		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_ALPHABET_SENTENCES);

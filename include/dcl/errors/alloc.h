@@ -13,16 +13,16 @@
 #define DCL_ERR_ARG_MESSAGE_ALLOC_DEP_GRAPH "Dep Graph"
 
 #define DCL_ERR_ARG_ALLOC_ODDS (2)
-#define DCL_ERR_ARG_MESSAGE_ALLOC_ODDS "Odds"
+#define DCL_ERR_ARG_MESSAGE_ALLOC_ODDS "DclOdds"
 
 #define DCL_ERR_ARG_ALLOC_ODDS_GRAPH (3)
-#define DCL_ERR_ARG_MESSAGE_ALLOC_ODDS_GRAPH "Odds Graph"
+#define DCL_ERR_ARG_MESSAGE_ALLOC_ODDS_GRAPH "DclOdds Graph"
 
 #define DCL_ERR_ARG_ALLOC_ODDS_GRAPH_NODE (4)
-#define DCL_ERR_ARG_MESSAGE_ALLOC_ODDS_GRAPH_NODE "Odds Graph Node"
+#define DCL_ERR_ARG_MESSAGE_ALLOC_ODDS_GRAPH_NODE "DclOdds Graph Node"
 
 #define DCL_ERR_ARG_ALLOC_SENTENCES (5)
-#define DCL_ERR_ARG_MESSAGE_ALLOC_SENTENCES "Sentences"
+#define DCL_ERR_ARG_MESSAGE_ALLOC_SENTENCES "DclSentences"
 
 size_t dcl_err_arg_strlen_alloc(int arg);
 errno_t dcl_err_arg_strcat_s_alloc(int arg, char* message, rsize_t size);

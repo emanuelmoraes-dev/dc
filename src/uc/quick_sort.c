@@ -1,6 +1,6 @@
 #include "uc/quick_sort.h"
 
-void list_quick_sort(List* list, int begin, int size) {
+void uc_list_quick_sort(UcList* list, int begin, int size) {
 	if (size < 2 || begin < 0 || begin >= size) {
 		return;
 	}
@@ -30,6 +30,6 @@ void list_quick_sort(List* list, int begin, int size) {
 		i++;
 	}
 
-	list_quick_sort(list, begin, pv - begin);
-	list_quick_sort(list, pv + 1, end - (pv + 1));
+	uc_list_quick_sort(list, begin, pv - begin);
+	uc_list_quick_sort(list, pv + 1, end - (pv + 1));
 }
