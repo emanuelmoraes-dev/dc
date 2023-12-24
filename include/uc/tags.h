@@ -4,5 +4,6 @@
 #define owner
 #define share
 #define borrow
+#define move
 
 #endif

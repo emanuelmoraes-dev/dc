@@ -11,6 +11,7 @@ add_library(
         src/dcl/content/content_alphabet.c
         src/dcl/content/content_graph.c
         src/dcl/content/content_free.c
+        src/dcl/content/content_gen.c
 )
 
 set_target_properties(dcl PROPERTIES VERSION 0.0.1)
