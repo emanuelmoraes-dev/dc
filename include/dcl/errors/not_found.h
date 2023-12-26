@@ -30,6 +30,9 @@
 #define DCL_ERR_ARG_NOT_FOUND_GRAPH_NODE (7)
 #define DCL_ERR_ARG_MESSAGE_NOT_FOUND_GRAPH_NODE "Graph Node"
 
+#define DCL_ERR_ARG_NOT_FOUND_AVAILABLE_SENTENCE (8)
+#define DCL_ERR_ARG_MESSAGE_NOT_FOUND_AVAILABLE_SENTENCE "Available Sentence"
+
 size_t dcl_err_arg_strlen_not_found(int arg);
 errno_t dcl_err_arg_strcat_s_not_found(int arg, char* message, rsize_t size);
 

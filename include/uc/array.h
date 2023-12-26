@@ -29,4 +29,6 @@ void uc_array_init_uint(UcArray* array, borrow unsigned int* data, int size);
 void uc_array_init_ulong(UcArray* array, borrow unsigned long* data, int size);
 void uc_array_init_ullong(UcArray* array, borrow unsigned long long* data, int size);
 
+void uc_array_shuffle(UcArray* array);
+
 #endif

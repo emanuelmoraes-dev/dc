@@ -10,20 +10,18 @@ bool dcl_content_alphabet_contains_key(const DclContent* content, const char* ke
 	return uc_hash_map_contains(&content->alphabet, key);
 }
 
-c_err dcl_content_alphabet_set_key(DclContent* content, owner char* key) {
+c_err dcl_content_alphabet_set_key(DclContent* content, const char* key) {
 	if (key == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_ALPHABET_KEY);
 	}
 
 	if (dcl_content_alphabet_contains_key(content, key)) {
-		free(key);
 		return C_OK;
 	}
 
 	DclSentences* sentences = (DclSentences*) malloc(sizeof(DclSentences));
 
 	if (sentences == NULL) {
-		free(key);
 		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_SENTENCES);
 	}
 
@@ -32,22 +30,22 @@ c_err dcl_content_alphabet_set_key(DclContent* content, owner char* key) {
 
 	if (sentences->array == NULL) {
 		free(sentences);
-		free(key);
 		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_SENTENCES);
 	}
 
-	c_err error = uc_hash_map_insert(&content->alphabet, key, sentences);
+	char* new_key = _strdup(key);
+	c_err error = uc_hash_map_insert(&content->alphabet, new_key, sentences);
 
-	if (error != C_OK && !uc_hash_map_contains(&content->alphabet, key)) {
+	if (error != C_OK && !uc_hash_map_contains(&content->alphabet, new_key)) {
 		free(sentences->array);
 		free(sentences);
-		free(key);
+		free(new_key);
 	}
 
 	return error;
 }
 
-c_err dcl_content_alphabet_add_sentence(DclContent* content, const char* key, owner char* sentence) {
+c_err dcl_content_alphabet_add_sentence(DclContent* content, const char* key, const char* sentence) {
 	if (key == NULL) {
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_ALPHABET_KEY);
 	}
@@ -72,7 +70,7 @@ c_err dcl_content_alphabet_add_sentence(DclContent* content, const char* key, ow
 		return DCL_ERR_THROW_INDEX_OUT(DCL_ERR_ARG_INDEX_OUT_ALPHABET);
 	}
 
-	sentences->array[new_size] = sentence;
+	sentences->array[new_size] = _strdup(sentence);
 	sentences->size = new_size;
 
 	return C_OK;

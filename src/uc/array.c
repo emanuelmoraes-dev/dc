@@ -1,4 +1,5 @@
 #include "uc/array.h"
+#include "uc/fisher_yates.h"
 #include <string.h>
 
 #define __ARRAY_CMP_BY_IDX_NUM(type, data1, idx1, data2, idx2) \
@@ -128,4 +129,8 @@ void uc_array_init_ulong(UcArray* array, borrow unsigned long* data, int size) {
 
 void uc_array_init_ullong(UcArray* array, borrow unsigned long long* data, int size) {
 	__ARRAY_INIT(ullong, unsigned long long, array, data, size);
+}
+
+void uc_array_shuffle(UcArray* array) {
+	uc_array_shuffle_fisher_yates(array);
 }

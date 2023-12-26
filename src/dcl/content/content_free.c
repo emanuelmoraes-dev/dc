@@ -58,11 +58,11 @@ void __odds_free(void* value) {
 	share DclContent* content = odds->content;
 
 	if (content != NULL && odds->graph != NULL) {
-		owner float** graph = odds->graph;
+		owner DclOddsValue** graph = odds->graph;
 		int alphabet_size = content->alphabet_size;
 
 		for (int i = 0; i < alphabet_size; ++i) {
-			owner float* node = graph[i];
+			owner DclOddsValue* node = graph[i];
 
 			if (node != NULL) {
 				free(node);

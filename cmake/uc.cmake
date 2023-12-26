@@ -10,6 +10,7 @@ add_library(
 		src/uc/errors/overflow.c
 		src/uc/hash_map.c
 		src/uc/array.c
+		src/uc/fisher_yates.c
 		src/uc/quick_sort.c
 		src/uc/linked_list.c
 )
