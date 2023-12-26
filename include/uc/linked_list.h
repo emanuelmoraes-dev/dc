@@ -43,7 +43,7 @@ c_err uc_linked_list_init(UcLinkedList* linked_list);
  * @param head - UcLinkedList head pointing to the first element in the list
  * @return C_OK if successful. Otherwise, return the error value
  */
-c_err uc_linked_list_borrow_head(UcLinkedList* linked_list, borrow UcLinkedListElement** head);
+c_err uc_linked_list_head(UcLinkedList* linked_list, borrow UcLinkedListElement** head);
 
 /**
  * Get the last element of UcLinkedList. If the list is empty, returns the head
@@ -52,7 +52,7 @@ c_err uc_linked_list_borrow_head(UcLinkedList* linked_list, borrow UcLinkedListE
  * @param last - Last element of UcLinkedList. If the list is empty, returns the head
  * @return C_OK if successful. Otherwise, return the error value
  */
-c_err uc_linked_list_borrow_last(UcLinkedList* linked_list, borrow UcLinkedListElement** last);
+c_err uc_linked_list_last(UcLinkedList* linked_list, borrow UcLinkedListElement** last);
 
 /**
  * @param linked_list - UcLinkedList instance

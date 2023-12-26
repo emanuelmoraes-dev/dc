@@ -28,7 +28,7 @@ c_err uc_linked_list_init(UcLinkedList* linked_list) {
  * @param head - UcLinkedList head pointing to the first element in the list
  * @return C_OK if successful. Otherwise, return the error value
  */
-c_err uc_linked_list_borrow_head(UcLinkedList* linked_list, borrow UcLinkedListElement** head) {
+c_err uc_linked_list_head(UcLinkedList* linked_list, borrow UcLinkedListElement** head) {
 	if (linked_list->__head == NULL) {
         linked_list->__head = __new_element();
 
@@ -52,9 +52,9 @@ c_err uc_linked_list_borrow_head(UcLinkedList* linked_list, borrow UcLinkedListE
  * @param last - Last element of UcLinkedList. If the list is empty, returns the head
  * @return C_OK if successful. Otherwise, return the error value
  */
-c_err uc_linked_list_borrow_last(UcLinkedList* linked_list, borrow UcLinkedListElement** last) {
+c_err uc_linked_list_last(UcLinkedList* linked_list, borrow UcLinkedListElement** last) {
 	UcLinkedListElement* head;
-	c_err error = uc_linked_list_borrow_head(linked_list, &head);
+	c_err error = uc_linked_list_head(linked_list, &head);
 
 	if (error != C_OK) {
 		return error;
@@ -78,14 +78,14 @@ bool uc_linked_list_is_empty(UcLinkedList* linked_list) {
 	}
 
 	UcLinkedListElement* head;
-	c_err error = uc_linked_list_borrow_head(linked_list, &head);
+	c_err error = uc_linked_list_head(linked_list, &head);
 
 	if (error != C_OK) {
 		return true;
 	}
 
 	UcLinkedListElement* last;
-	error = uc_linked_list_borrow_last(linked_list, &last);
+	error = uc_linked_list_last(linked_list, &last);
 
 	if (error != C_OK) {
 		return true;
@@ -108,7 +108,7 @@ c_err uc_linked_list_borrow_top(UcLinkedList* linked_list, borrow void** value) 
 	}
 
 	UcLinkedListElement* head;
-	c_err error = uc_linked_list_borrow_head(linked_list, &head);
+	c_err error = uc_linked_list_head(linked_list, &head);
 
 	if (error != C_OK) {
 		return error;
@@ -198,7 +198,7 @@ c_err uc_linked_list_add_next(UcLinkedList* linked_list, UcLinkedListElement* be
 	if (before != NULL) {
 		ant = before;
 	} else {
-		c_err error = uc_linked_list_borrow_last(linked_list, &ant);
+		c_err error = uc_linked_list_last(linked_list, &ant);
 
 		if (error != C_OK) {
 			return error;
@@ -233,7 +233,7 @@ c_err uc_linked_list_add_next(UcLinkedList* linked_list, UcLinkedListElement* be
  */
 c_err uc_linked_list_add_top(UcLinkedList* linked_list, share void* value) {
 	UcLinkedListElement* head;
-	c_err error = uc_linked_list_borrow_head(linked_list, &head);
+	c_err error = uc_linked_list_head(linked_list, &head);
 
 	if (error != C_OK) {
 		return error;
@@ -251,7 +251,7 @@ c_err uc_linked_list_add_top(UcLinkedList* linked_list, share void* value) {
  */
 c_err uc_linked_list_add_last(UcLinkedList* linked_list, share void* value) {
 	UcLinkedListElement* last;
-	c_err error = uc_linked_list_borrow_last(linked_list, &last);
+	c_err error = uc_linked_list_last(linked_list, &last);
 
 	if (error != C_OK) {
 		return error;
@@ -344,7 +344,7 @@ bool uc_linked_list_eraser_destructor_next(UcLinkedList* linked_list, UcLinkedLi
 bool uc_linked_list_remove_top(UcLinkedList* linked_list, move void** value) {
 	UcLinkedListElement* head;
 
-	c_err error = uc_linked_list_borrow_head(linked_list, &head);
+	c_err error = uc_linked_list_head(linked_list, &head);
 
 	if (error != C_OK || uc_linked_list_is_empty(linked_list)) {
 		return false;
@@ -380,7 +380,7 @@ bool uc_linked_list_eraser_top(UcLinkedList* linked_list) {
 bool uc_linked_list_remove_last(UcLinkedList* linked_list, move void** value) {
 	UcLinkedListElement* last;
 
-	c_err error = uc_linked_list_borrow_last(linked_list, &last);
+	c_err error = uc_linked_list_last(linked_list, &last);
 
 	if (error != C_OK) {
 		return false;
@@ -416,7 +416,7 @@ bool uc_linked_list_eraser_last(UcLinkedList* linked_list) {
  */
 bool uc_linked_list_clear_by_head(UcLinkedList* linked_list, UcLinkedListElement* head) {
 	UcLinkedListElement* linked_list_head;
-	c_err error = uc_linked_list_borrow_head(linked_list, &linked_list_head);
+	c_err error = uc_linked_list_head(linked_list, &linked_list_head);
 
 	if (error != C_OK) {
 		return false;
@@ -453,7 +453,7 @@ bool uc_linked_list_clear_by_head(UcLinkedList* linked_list, UcLinkedListElement
  */
 bool uc_linked_list_clear_eraser_by_head(UcLinkedList* linked_list, UcLinkedListElement* head) {
 	UcLinkedListElement* linked_list_head;
-	c_err error = uc_linked_list_borrow_head(linked_list, &linked_list_head);
+	c_err error = uc_linked_list_head(linked_list, &linked_list_head);
 
 	if (error != C_OK) {
 		return false;
@@ -490,7 +490,7 @@ bool uc_linked_list_clear_eraser_by_head(UcLinkedList* linked_list, UcLinkedList
  */
 bool uc_linked_list_clear_eraser_destructor_by_head(UcLinkedList* linked_list, UcLinkedListElement* head, void (*destructor)(void*)) {
 	UcLinkedListElement* linked_list_head;
-	c_err error = uc_linked_list_borrow_head(linked_list, &linked_list_head);
+	c_err error = uc_linked_list_head(linked_list, &linked_list_head);
 
 	if (error != C_OK) {
 		return false;
