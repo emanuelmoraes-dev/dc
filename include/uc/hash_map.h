@@ -29,7 +29,7 @@ void uc_hash_map_free(UcHashMap* hash_map, void (*value_free)(void* value));
 bool uc_hash_map_contains(const UcHashMap* hash_map, const char* key);
 c_err uc_hash_map_insert(UcHashMap* hash_map, owner char* key, share void* value);
 void* uc_hash_map_get(const UcHashMap* hash_map, const char* key);
-void* uc_hash_map_reowner(UcHashMap* hash_map, const char* key);
+void* uc_hash_map_remove(UcHashMap* hash_map, const char* key);
 void uc_hash_map_make_iterator(const UcHashMap* hash_map, UcHashMapIterator* iterator);
 bool uc_hash_map_has_next(const UcHashMap* hash_map, const UcHashMapIterator* iterator);
 c_err uc_hash_map_next(const UcHashMap* hash_map, UcHashMapIterator* iterator);

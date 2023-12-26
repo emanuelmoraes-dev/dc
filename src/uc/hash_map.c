@@ -172,7 +172,7 @@ void* uc_hash_map_get(const UcHashMap* hash_map, const char* key) {
 	return hash_map->data[index].value;
 }
 
-void* uc_hash_map_reowner(UcHashMap* hash_map, const char* key) {
+void* uc_hash_map_remove(UcHashMap* hash_map, const char* key) {
 	int index = __uc_hash_map_index(hash_map, key);
 
 	if (index < 0) {
