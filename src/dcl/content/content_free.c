@@ -11,13 +11,7 @@ void dcl_content_free(DclContent* content) {
 	uc_hash_map_free(&content->odds_graph, __odds_deps_free);
 }
 
-void __sentences_free(void* value) {
-	if (value == NULL) {
-		return;
-	}
-
-	owner DclSentences* sentences = (DclSentences*) value;
-
+void dcl_sentences_free(DclSentences* sentences) {
 	if (sentences->array != NULL) {
 		owner char** array = sentences->array;
 		int size = MAX(sentences->size, 0);
@@ -37,6 +31,15 @@ void __sentences_free(void* value) {
 	}
 
 	free(sentences);
+}
+
+void __sentences_free(void* value) {
+	if (value == NULL) {
+		return;
+	}
+
+	owner DclSentences* sentences = (DclSentences*) value;
+	dcl_sentences_free(sentences);
 }
 
 void __odds_deps_free(void* value) {

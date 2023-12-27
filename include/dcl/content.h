@@ -49,8 +49,9 @@ typedef struct dcl_gen_input {
 } DclGenInput;
 
 c_err dcl_content_init(DclContent* content, int alphabet_size, int keys_size);
+c_err dcl_content_gen(const DclContent* content, borrow UcHashMap* dcl_sentences_result, const DclGenInput* gen_input);
 void dcl_content_free(DclContent* content);
-c_err dcl_content_gen(const DclContent* content, borrow UcHashMap* sentences_result, const DclGenInput* gen_input);
+void dcl_sentences_free(DclSentences* sentences);
 
 bool dcl_content_alphabet_contains_key(const DclContent* content, const char* key);
 c_err dcl_content_alphabet_set_key(DclContent* content, const char* key);
