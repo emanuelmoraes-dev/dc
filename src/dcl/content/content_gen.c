@@ -102,7 +102,7 @@ c_err __gen_dep(const DclContent* content, borrow UcHashMap* dcl_sentences_resul
 
 		UcArray node_array;
 		__array_init_odds_value_entry(&node_array, node_entries, content->alphabet_size);
-		uc_array_quick_sort(&node_array, 0, content->alphabet_size);
+		uc_array_quick_sort(&node_array, UC_DESC, 0, content->alphabet_size);
 
 		// TODO
 	}

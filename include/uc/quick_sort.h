@@ -3,6 +3,11 @@
 
 #include "uc/array.h"
 
-void uc_array_quick_sort(UcArray* array, int idx_begin, int size);
+#define UC_ASC (1)
+#define UC_DESC (-1)
+
+typedef int uc_order;
+
+void uc_array_quick_sort(UcArray* array, uc_order order, int idx_begin, int size);
 
 #endif

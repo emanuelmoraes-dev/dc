@@ -1,6 +1,6 @@
 #include "uc/quick_sort.h"
 
-void uc_array_quick_sort(UcArray* array, int begin, int size) {
+void uc_array_quick_sort(UcArray* array, uc_order order, int begin, int size) {
 	if (size < 2 || begin < 0 || begin >= size) {
 		return;
 	}
@@ -16,7 +16,7 @@ void uc_array_quick_sort(UcArray* array, int begin, int size) {
 
 	int i = begin;
 	while (i < pv) {
-		if (array->cmp_by_idx(array->data, i, array->data, pv) > 0) {
+		if (array->cmp_by_idx(array->data, i, array->data, pv) * order > 0) {
 			array->swp_by_idx(array->data, pv-1, array->data, pv);
 			pv--;
 
@@ -30,6 +30,6 @@ void uc_array_quick_sort(UcArray* array, int begin, int size) {
 		i++;
 	}
 
-	uc_array_quick_sort(array, begin, pv - begin);
-	uc_array_quick_sort(array, pv + 1, end - (pv + 1));
+	uc_array_quick_sort(array, order, begin, pv - begin);
+	uc_array_quick_sort(array, order, pv + 1, end - (pv + 1));
 }
