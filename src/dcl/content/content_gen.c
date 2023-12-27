@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <math.h>
 
 c_err __gen_targets(const DclContent* content, borrow UcHashMap* dcl_sentences_result, const DclGenInput* gen_input);
 c_err dcl_content_gen(const DclContent* content, borrow UcHashMap* dcl_sentences_result, const DclGenInput* gen_input) {
@@ -58,10 +59,17 @@ c_err __gen_targets(const DclContent* content, borrow UcHashMap* dcl_sentences_r
 	return C_OK;
 }
 
-c_err __gen_required(const DclContent* content, UcLinkedList* dep_sentences, const char* dep_key, DclOddsValue* node);
+c_err __gen_required(const DclContent* content, UcLinkedList* dep_sentences, const DclSentences* sentences, DclOddsValue* node);
+c_err __gen_rand_factor(const DclContent* content, UcLinkedList* dep_sentences, const DclSentences* sentences, const OddsValueEntry* node_entries, int min_dep_sentences);
 c_err __gen_dep(const DclContent* content, borrow UcHashMap* dcl_sentences_result, const DclGenInput* gen_input, const char* target_key, borrow StringEntry* target_sentence) {
 	for (int d = 0; d < gen_input->dep_keys_size; ++d) {
 		const char* dep_key = gen_input->dep_keys[d];
+		const DclSentences* sentences = (const DclSentences*) uc_hash_map_get(&content->alphabet, dep_key);
+
+		if (sentences == NULL) {
+			return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_ALPHABET_KEY);
+		}
+
 		const UcHashMap* dep = (UcHashMap*) uc_hash_map_get(&content->odds_graph, target_key);
 
 		if (dep == NULL) {
@@ -90,7 +98,7 @@ c_err __gen_dep(const DclContent* content, borrow UcHashMap* dcl_sentences_resul
 			return error;
 		}
 
-		error = __gen_required(content, &dep_sentences, dep_key, node);
+		error = __gen_required(content, &dep_sentences, sentences, node);
 
 		if (error != C_OK) {
 			uc_linked_list_free(&dep_sentences);
@@ -104,19 +112,20 @@ c_err __gen_dep(const DclContent* content, borrow UcHashMap* dcl_sentences_resul
 		__array_init_odds_value_entry(&node_array, node_entries, content->alphabet_size);
 		uc_array_quick_sort(&node_array, UC_DESC, 0, content->alphabet_size);
 
+		error = __gen_rand_factor(content, &dep_sentences, sentences, node_entries, gen_input->min_dep_sentences);
+
+		if (error != C_OK) {
+			uc_linked_list_free(&dep_sentences);
+			return error;
+		}
+
 		// TODO
 	}
 
 	return C_OK;
 }
 
-c_err __gen_required(const DclContent* content, UcLinkedList* dep_sentences, const char* dep_key, DclOddsValue* node) {
-	const DclSentences* sentences = (const DclSentences*) uc_hash_map_get(&content->alphabet, dep_key);
-
-	if (sentences == NULL) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_ALPHABET_KEY);
-	}
-
+c_err __gen_required(const DclContent* content, UcLinkedList* dep_sentences, const DclSentences* sentences, DclOddsValue* node) {
 	for (int i = 0; i < content->alphabet_size; ++i) {
 		DclOddsValue* odds_value = &node[i];
 
@@ -130,6 +139,45 @@ c_err __gen_required(const DclContent* content, UcLinkedList* dep_sentences, con
 
 			odds_value->required -= 1;
 			odds_value->factor -= 1;
+		}
+	}
+
+	return C_OK;
+}
+
+c_err __gen_rand_factor(const DclContent* content, UcLinkedList* dep_sentences, const DclSentences* sentences, const OddsValueEntry* node_entries, int min_dep_sentences) {
+	if (dep_sentences->size >= min_dep_sentences) {
+		return C_OK;
+	}
+
+	int sum_factor = 0;
+	for (int i = 0; i < content->alphabet_size; ++i) {
+		const DclOddsValue* odds_value = node_entries[i].value;
+		if (odds_value->factor > 0) {
+			sum_factor += odds_value->factor;
+		}
+	}
+
+	if (sum_factor == 0) {
+		return C_OK;
+	}
+
+	for (int i = 0; i < content->alphabet_size; ++i) {
+		OddsValueEntry node_entry = node_entries[i];
+		const DclOddsValue* odds_value = node_entry.value;
+		float percent = odds_value->factor/sum_factor;
+		float rand_percent = (rand() % 100) / (float) 100;
+		if (rand_percent > percent) {
+			const char* sentence = sentences->array[node_entry.index];
+			c_err error = uc_linked_list_add_last(dep_sentences, (void*) sentence);
+
+			if (error != C_OK) {
+				return error;
+			}
+
+			if (dep_sentences->size >= min_dep_sentences) {
+				return C_OK;
+			}
 		}
 	}
 
