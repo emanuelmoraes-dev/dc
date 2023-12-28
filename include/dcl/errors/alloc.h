@@ -27,6 +27,21 @@
 #define DCL_ERR_ARG_ALLOC_CONTENT_GEN (6)
 #define DCL_ERR_ARG_MESSAGE_ALLOC_CONTENT_GEN "Content Gen"
 
+#define DCL_ERR_ARG_ALLOC_RESULT_KEY (7)
+#define DCL_ERR_ARG_MESSAGE_ALLOC_RESULT_KEY "Result Key"
+
+#define DCL_ERR_ARG_ALLOC_RESULT_SENTENCE (8)
+#define DCL_ERR_ARG_MESSAGE_ALLOC_RESULT_SENTENCE "Result Sentence"
+
+#define DCL_ERR_ARG_ALLOC_ALPHABET_KEY (9)
+#define DCL_ERR_ARG_MESSAGE_ALLOC_ALPHABET_KEY "Alphabet Key"
+
+#define DCL_ERR_ARG_ALLOC_ODDS_GRAPH_KEY (10)
+#define DCL_ERR_ARG_MESSAGE_ALLOC_ODDS_GRAPH_KEY "Odds Graph Key"
+
+#define DCL_ERR_ARG_ALLOC_DEP_KEY (11)
+#define DCL_ERR_ARG_MESSAGE_ALLOC_DEP_KEY "Odds Graph Key"
+
 size_t dcl_err_arg_strlen_alloc(int arg);
 errno_t dcl_err_arg_strcat_s_alloc(int arg, char* message, rsize_t size);
 

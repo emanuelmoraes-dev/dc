@@ -34,9 +34,15 @@ c_err dcl_content_graph_set_key1(DclContent* content, const char* key1) {
 	}
 
 	char* new_key1 = _strdup(key1);
+
+	if (new_key1 == NULL) {
+		free(dep);
+		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_ODDS_GRAPH_KEY);
+	}
+
 	error = uc_hash_map_insert(&content->odds_graph, new_key1, dep);
 
-	if (error != C_OK && !uc_hash_map_contains(&content->odds_graph, new_key1)) {
+	if (error != C_OK) {
 		free(dep);
 		free(new_key1);
 	}
@@ -130,9 +136,17 @@ c_err dcl_content_graph_set_key2(DclContent* content, const char* key1, const ch
 	}
 
 	char* new_key2 = _strdup(key2);
+
+	if (new_key2 == NULL) {
+		__graph_free(odds->graph, content->alphabet_size);
+		free(odds);
+		free(dep);
+		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_DEP_KEY);
+	}
+
 	c_err error = uc_hash_map_insert(dep, new_key2, odds);
 
-	if (error != C_OK && !uc_hash_map_contains(dep, new_key2)) {
+	if (error != C_OK) {
 		__graph_free(odds->graph, content->alphabet_size);
 		free(odds);
 		free(dep);

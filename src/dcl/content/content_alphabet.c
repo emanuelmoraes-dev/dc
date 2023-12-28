@@ -34,9 +34,16 @@ c_err dcl_content_alphabet_set_key(DclContent* content, const char* key) {
 	}
 
 	char* new_key = _strdup(key);
+
+	if (new_key == NULL) {
+		free(sentences->array);
+		free(sentences);
+		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_ALPHABET_KEY);
+	}
+
 	c_err error = uc_hash_map_insert(&content->alphabet, new_key, sentences);
 
-	if (error != C_OK && !uc_hash_map_contains(&content->alphabet, new_key)) {
+	if (error != C_OK) {
 		free(sentences->array);
 		free(sentences);
 		free(new_key);
@@ -71,6 +78,11 @@ c_err dcl_content_alphabet_add_sentence(DclContent* content, const char* key, co
 	}
 
 	sentences->array[new_size] = _strdup(sentence);
+
+	if (sentences->array[new_size] == NULL) {
+		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_SENTENCES);
+	}
+
 	sentences->size = new_size;
 
 	return C_OK;
