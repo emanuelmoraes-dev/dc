@@ -90,29 +90,26 @@ bool uc_hash_map_contains(const UcHashMap* hash_map, const char* key) {
 	return __uc_hash_map_index(hash_map, key) >= 0;
 }
 
-bool __uc_hash_map_set(UcHashMap* hash_map, owner char* key, share void* value) {
+void __uc_hash_map_set(UcHashMap* hash_map, owner char* key, share void* value) {
 	int index = __uc_hash_map_index(hash_map, key);
 
 	if (index >= 0) {
 		hash_map->data[index].value = value;
-		return true;
+		free(key);
+		return;
 	}
 
 	int capacity = hash_map->capacity;
 	index = __key_hash(key, capacity);
-	bool inserted = false;
 	int count = 0;
 
 	for (int i = index; count < capacity; i = (i + 1) % capacity, ++count) {
 		if (hash_map->data[i].key == NULL) {
 			uc_key_value_init(&hash_map->data[i], key, value);
-			inserted = true;
 			hash_map->size++;
 			break;
 		}
 	}
-
-	return inserted;
 }
 
 c_err __uc_hash_map_realloc(UcHashMap* hash_map) {
@@ -145,9 +142,7 @@ c_err __uc_hash_map_realloc(UcHashMap* hash_map) {
 }
 
 c_err uc_hash_map_insert(UcHashMap* hash_map, owner char* key, share void* value) {
-	bool inserted = __uc_hash_map_set(hash_map, key, value);
-
-	if (hash_map->size > hash_map->capacity * UC_HASH_MAP_SIZE_FACTOR) {
+	if (hash_map->size + 1 > hash_map->capacity * UC_HASH_MAP_SIZE_FACTOR) {
 		c_err error = __uc_hash_map_realloc(hash_map);
 
 		if (error != C_OK) {
@@ -155,9 +150,7 @@ c_err uc_hash_map_insert(UcHashMap* hash_map, owner char* key, share void* value
 		}
 	}
 
-	if (!inserted) {
-		__uc_hash_map_set(hash_map, key, value);
-	}
+	__uc_hash_map_set(hash_map, key, value);
 
 	return C_OK;
 }
