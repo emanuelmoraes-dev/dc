@@ -18,6 +18,15 @@
 #define DCL_ERR_ARG_NULL_GRAPH_KEY (3)
 #define DCL_ERR_ARG_MESSAGE_NULL_GRAPH_KEY "Graph Key"
 
+#define DCL_ERR_ARG_NULL_RESULT_KEY (4)
+#define DCL_ERR_ARG_MESSAGE_NULL_RESULT_KEY "Result Key"
+
+#define DCL_ERR_ARG_NULL_RESULT_SENTENCES (5)
+#define DCL_ERR_ARG_MESSAGE_NULL_RESULT_SENTENCES "Result Sentences"
+
+#define DCL_ERR_ARG_NULL_RESULT_SENTENCE (6)
+#define DCL_ERR_ARG_MESSAGE_NULL_RESULT_SENTENCE "Result Sentence"
+
 size_t dcl_err_arg_strlen_null(int arg);
 errno_t dcl_err_arg_strcat_s_null(int arg, char* message, rsize_t size);
 
