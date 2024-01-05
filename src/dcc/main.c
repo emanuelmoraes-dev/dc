@@ -29,6 +29,7 @@ c_err foo(int argc, const char* argv[]) {
     DclContent content;
     c_err error = dcl_content_init(&content, alphabet_size, keys_size);
     if (error != C_OK) {
+        fprintf(stderr, "dcl_content_init error %d\n", error);
         return error;
     }
 
@@ -39,6 +40,7 @@ c_err foo(int argc, const char* argv[]) {
     const char* keys[] = {creatures_key, itens_key};
     error = foo_alphabet_keys(&content, keys, 2);
     if (error != C_OK) {
+        fprintf(stderr, "foo_alphabet_keys error %d\n", error);
         dcl_sentences_free(&content);
         return error;
     }
@@ -51,6 +53,7 @@ c_err foo(int argc, const char* argv[]) {
     const char* creatures_sentences[] = {human, ogre};
     error = foo_alphabet_sentences(&content, creatures_key, creatures_sentences, creatures_size);
     if (error != C_OK) {
+        fprintf(stderr, "foo_alphabet_sentences (1) error %d\n", error);
         dcl_content_free(&content);
         return error;
     }
@@ -62,6 +65,7 @@ c_err foo(int argc, const char* argv[]) {
     const char* itens_sentences[] = {shield, sword, ax};
     error = foo_alphabet_sentences(&content, itens_key, itens_sentences, itens_size);
     if (error != C_OK) {
+        fprintf(stderr, "foo_alphabet_sentences (2) error %d\n", error);
         dcl_content_free(&content);
         return error;
     }
@@ -72,6 +76,7 @@ c_err foo(int argc, const char* argv[]) {
     const char* creatures_dep_keys[] = {itens_key};
     error = foo_graph_keys(&content, creatures_key, creatures_dep_keys, creatures_dep_keys_size);
     if (error != C_OK) {
+        fprintf(stderr, "foo_graph_keys error %d\n", error);
         dcl_content_free(&content);
         return error;
     }
@@ -82,13 +87,14 @@ c_err foo(int argc, const char* argv[]) {
         for (int j = 0; j < itens_size; ++j) {
             error = foo_graph_odds(&content, creatures_key, creatures_dep_keys, creatures_dep_keys_size, i, j, 0.5, 0);
             if (error != C_OK) {
+                fprintf(stderr, "foo_graph_odds error %d\n", error);
                 dcl_content_free(&content);
                 return error;
             }
         }
     }
 
-    puts("$> generating result...");
+    puts("$> generating parameters...");
 
     int target_keys_size = 1;
     const char* target_keys[] = {creatures_key};
@@ -102,15 +108,21 @@ c_err foo(int argc, const char* argv[]) {
     gen.dep_keys_size = creatures_dep_keys_size;
     gen.min_dep_sentences = 2;
 
+    puts("$> allocating result memory...");
+
     UcHashMap dcl_sentences_result;
     error = uc_hash_map_init(&dcl_sentences_result, DCL_HASH_MAP_CAPACITY(target_keys_size, INT_MAX));
     if (error != C_OK) {
+        fprintf(stderr, "uc_hash_map_init error %d\n", error);
         dcl_content_free(&content);
         return error;
     }
 
+    puts("$> generating results...");
+
     error = dcl_content_gen(&content, &dcl_sentences_result, &gen);
     if (error != C_OK) {
+        fprintf(stderr, "dcl_content_gen error %d\n", error);
         uc_hash_map_free(&dcl_sentences_result, dcl_sentences_free);
         dcl_content_free(&content);
         return error;
@@ -123,6 +135,7 @@ c_err foo(int argc, const char* argv[]) {
     while(uc_hash_map_has_next(&dcl_sentences_result, &it)) {
         error = uc_hash_map_next(&dcl_sentences_result, &it);
         if (error != C_OK) {
+            fprintf(stderr, "uc_hash_map_next error %d\n", error);
             uc_hash_map_free(&dcl_sentences_result, dcl_sentences_free);
             dcl_content_free(&content);
             return error;
@@ -132,18 +145,21 @@ c_err foo(int argc, const char* argv[]) {
         DclSentences* sentences = NULL;
         error = uc_hash_map_borrow_key_value(&dcl_sentences_result, &it, &target_key, (void*) &sentences);
         if (error != C_OK) {
+            fprintf(stderr, "uc_hash_map_borrow_key_value error %d\n", error);
             uc_hash_map_free(&dcl_sentences_result, dcl_sentences_free);
             dcl_content_free(&content);
             return error;
         }
 
         if (target_key == NULL) {
+            fprintf(stderr, "target_key NULL\n");
             uc_hash_map_free(&dcl_sentences_result, dcl_sentences_free);
             dcl_content_free(&content);
             return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_RESULT_KEY);
         }
 
         if (sentences == NULL || sentences->array == NULL) {
+            fprintf(stderr, "sentences NULL\n");
             uc_hash_map_free(&dcl_sentences_result, dcl_sentences_free);
             dcl_content_free(&content);
             return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_RESULT_SENTENCES);
@@ -151,7 +167,8 @@ c_err foo(int argc, const char* argv[]) {
 
         for (int i = 0; i < sentences->size; ++i) {
             const char* sentence = sentences->array[i];
-            if (sentences == NULL) {
+            if (sentence == NULL) {
+                fprintf(stderr, "sentence NULL\n");
                 uc_hash_map_free(&dcl_sentences_result, dcl_sentences_free);
                 dcl_content_free(&content);
                 return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_RESULT_SENTENCE);
