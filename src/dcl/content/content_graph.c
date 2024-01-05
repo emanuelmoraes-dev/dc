@@ -95,13 +95,13 @@ c_err dcl_content_graph_set_dep_key(DclContent* content, const char* target_key,
 	}
 
 	if (!dcl_content_graph_contains_target_key(content, target_key)) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_KEY);
+		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_TARGET_KEY);
 	}
 
 	UcHashMap* dep = (UcHashMap*) uc_hash_map_get(&content->odds_graph, target_key);
 
 	if (dep == NULL) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP);
+		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP_KEY);
 	}
 
 	DclOdds* odds = (DclOdds*) malloc(sizeof(DclOdds));
@@ -167,13 +167,13 @@ c_err dcl_content_graph_borrow_odds(const DclContent* content, const char* targe
 	}
 
 	if (!dcl_content_graph_contains_dep_key(content, target_key, dep_key)) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_KEY);
+		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_TARGET_KEY);
 	}
 
 	UcHashMap* dep = (UcHashMap*) uc_hash_map_get(&content->odds_graph, target_key);
 
 	if (dep == NULL) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP);
+		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP_KEY);
 	}
 
 	DclOdds* item = (DclOdds*) uc_hash_map_get(dep, dep_key);

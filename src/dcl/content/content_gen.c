@@ -90,7 +90,7 @@ c_err __gen_dep(const DclContent* content, UcHashMap* dcl_sentences_result, cons
 
 		if (dep == NULL) {
 			uc_linked_list_free(&dep_sentences);
-			return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP);
+			return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP_KEY);
 		}
 
 		const DclOdds* odds = (DclOdds*) uc_hash_map_get(dep, dep_key);

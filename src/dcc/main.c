@@ -7,7 +7,7 @@ int main(int argc, const char* argv[]) {
     c_err error = foo(argc, argv);
 
     if (error != C_OK) {
-        fprintf(stderr, "!> Error (%d): ", error);
+        fprintf(stderr, "!> Error (code %d). ", error);
         int error_len = dcl_err_strlen(error);
         char message[error_len + 1];
         dcl_err_strcpy_s(error, message, error_len + 1);
@@ -156,7 +156,7 @@ c_err foo(int argc, const char* argv[]) {
                 dcl_content_free(&content);
                 return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_RESULT_SENTENCE);
             }
-            printf("> %s: %s", target_key, sentence);
+            printf("#> %s: %s", target_key, sentence);
         }
 
         if (sentences->size > 0) {
