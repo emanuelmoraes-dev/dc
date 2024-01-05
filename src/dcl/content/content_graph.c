@@ -1,4 +1,5 @@
 #include "dcl/content.h"
+#include <stdio.h>
 #include <limits.h>
 #include <stdlib.h>
 
@@ -93,7 +94,7 @@ c_err dcl_content_graph_set_dep_key(DclContent* content, const char* target_key,
 		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
 
-	if (!dcl_content_graph_contains_dep_key(content, target_key, dep_key)) {
+	if (!dcl_content_graph_contains_target_key(content, target_key)) {
 		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_KEY);
 	}
 

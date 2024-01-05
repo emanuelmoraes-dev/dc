@@ -77,9 +77,9 @@ c_err dcl_content_alphabet_add_sentence(DclContent* content, const char* key, co
 		return DCL_ERR_THROW_INDEX_OUT(DCL_ERR_ARG_INDEX_OUT_ALPHABET);
 	}
 
-	sentences->array[new_size] = _strdup(sentence);
+	sentences->array[new_size - 1] = _strdup(sentence);
 
-	if (sentences->array[new_size] == NULL) {
+	if (sentences->array[new_size - 1] == NULL) {
 		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_SENTENCES);
 	}
 

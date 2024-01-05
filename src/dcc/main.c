@@ -7,10 +7,11 @@ int main(int argc, const char* argv[]) {
     c_err error = foo(argc, argv);
 
     if (error != C_OK) {
+        fprintf(stderr, "!> Error (%d): ", error);
         int error_len = dcl_err_strlen(error);
         char message[error_len + 1];
         dcl_err_strcpy_s(error, message, error_len + 1);
-        fprintf(stderr, "!! Error: %s. Code %d\n", message, error);
+        fprintf(stderr, "%s\n", message);
         return error;
     }
 
@@ -31,7 +32,7 @@ c_err foo(int argc, const char* argv[]) {
         return error;
     }
 
-    puts(">> allocating alphabet keys...");
+    puts("$> allocating alphabet keys...");
 
     const char creatures_key[] = "creatures";
     const char itens_key[] = "itens";
@@ -42,7 +43,7 @@ c_err foo(int argc, const char* argv[]) {
         return error;
     }
 
-    puts(">> allocating alphabet sentences...");
+    puts("$> allocating alphabet sentences...");
 
     int creatures_size = 2;
     const char human[] = "human";
@@ -65,7 +66,7 @@ c_err foo(int argc, const char* argv[]) {
         return error;
     }
 
-    puts(">> allocating graph keys");
+    puts("$> allocating graph keys...");
 
     int creatures_dep_keys_size = 1;
     const char* creatures_dep_keys[] = {itens_key};
@@ -75,7 +76,7 @@ c_err foo(int argc, const char* argv[]) {
         return error;
     }
 
-    puts(">> allocating graph values");
+    puts("$> allocating graph values...");
 
     for (int i = 0; i < creatures_size; ++i) {
         for (int j = 0; j < itens_size; ++j) {
@@ -87,7 +88,7 @@ c_err foo(int argc, const char* argv[]) {
         }
     }
 
-    puts(">> generating result...");
+    puts("$> generating result...");
 
     int target_keys_size = 1;
     const char* target_keys[] = {creatures_key};
@@ -115,7 +116,7 @@ c_err foo(int argc, const char* argv[]) {
         return error;
     }
 
-    puts(">> printing result...");
+    puts("$> printing result...");
 
     UcHashMapIterator it;
     uc_hash_map_make_iterator(&dcl_sentences_result, &it);
@@ -163,46 +164,54 @@ c_err foo(int argc, const char* argv[]) {
         }
     }
 
-    puts(">> clearing memory");
+    puts("$> clearing memory...");
 
     uc_hash_map_free(&dcl_sentences_result, dcl_sentences_free);
     dcl_content_free(&content);
 
-    puts(">> done!");
+    puts("$> done!");
     return C_OK;
 }
 
 c_err foo_alphabet_keys(DclContent* content, const char* keys[], int keys_size) {
     for (int i = 0; i < keys_size; ++i) {
+        printf("$>> allocating alphabet key \"%s\"...\n", keys[i]);
         c_err error = dcl_content_alphabet_set_key(content, keys[i]);
         if (error != C_OK) {
             return error;
         }
+        printf("$>> alphabet key \"%s\" allocated\n", keys[i]);
     }
     return C_OK;
 }
 
 c_err foo_alphabet_sentences(DclContent* content, const char* key, const char* sentences[], int sentences_size) {
     for (int i = 0; i < sentences_size; ++i) {
+        printf("$>> allocating alphabet sentence \"%s\" mapped by \"%s\"...\n", sentences[i], key);
         c_err error = dcl_content_alphabet_add_sentence(content, key, sentences[i]);
         if (error != C_OK) {
             return error;
         }
+        printf("$>> alphabet sentence \"%s\" mapped by \"%s\" allocated\n", sentences[i], key);
     }
     return C_OK;
 }
 
 c_err foo_graph_keys(DclContent* content, const char* target_key, const char* dep_keys[], int dep_keys_size) {
+    printf("$>> allocating graph target key \"%s\"...\n", target_key);
     c_err error = dcl_content_graph_set_target_key(content, target_key);
     if (error != C_OK) {
         return error;
     }
+    printf("$>> graph target key \"%s\" allocated\n", target_key);
 
     for (int i = 0; i < dep_keys_size; ++i) {
+        printf("$>> allocating graph dep key \"%s\" mapped by \"%s\"...\n", dep_keys[i], target_key);
         error = dcl_content_graph_set_dep_key(content, target_key, dep_keys[i]);
         if (error != C_OK) {
             return error;
         }
+        printf("$>> graph dep key \"%s\" mapped by \"%s\" allocated\n", dep_keys[i], target_key);
     }
 
     return C_OK;
@@ -210,10 +219,12 @@ c_err foo_graph_keys(DclContent* content, const char* target_key, const char* de
 
 c_err foo_graph_odds(DclContent* content, const char* target_key, const char* dep_keys[], int dep_keys_size, int index1, int index2, float factor, int required) {
     for (int i = 0; i < dep_keys_size; ++i) {
+        printf("$>> allocating graph odds (%.2f:%d) mapped by [%s][%s]...\n", factor, required, target_key, dep_keys[i]);
         c_err error = dcl_content_graph_set_odds(content, target_key, dep_keys[i], index1, index2, factor, required);
         if (error != C_OK) {
             return error;
         }
+        printf("$>> graph odds (%.2f:%d) mapped by [%s][%s] allocated\n", factor, required, target_key, dep_keys[i]);
     }
     return C_OK;
 }
