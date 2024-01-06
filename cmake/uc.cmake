@@ -13,6 +13,7 @@ add_library(
 		src/uc/fisher_yates.c
 		src/uc/quick_sort.c
 		src/uc/linked_list.c
+		src/uc/logs.c
 )
 
 set_target_properties(uc PROPERTIES VERSION 0.0.1)
