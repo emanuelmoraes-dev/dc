@@ -15,31 +15,20 @@
 #define UC_LOG_OPT_ERR_STDERR (0b0001)
 #define UC_LOG_OPT_DEFAULT    UC_LOG_OPT_TIME
 
-#if defined(UC_LOG_TYPES) && defined(UC_LOG_OPTS)
-
-	#define UC_LOG(type_name, message) \
-		uc_log(UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_##type_name, message)
-
-#elif defined(UC_LOG_TYPES)
-
-	#define UC_LOG(type_name, message) \
-		uc_log_env_opts(UC_LOG_TYPES, UC_LOG_TYPE_##type_name, message)
-
-#elif defined(UC_LOG_OPTS)
-
-	#define UC_LOG(type_name, message) \
-		uc_log_env_verify(UC_LOG_OPTS, UC_LOG_TYPE_##type_name, message)
-
-#else
-
-	#define UC_LOG(type_name, message) \
-		uc_log_env(UC_LOG_TYPE_##type_name, message)
-
+#if !defined(UC_LOG_TYPES)
+	#define UC_LOG_TYPES UC_LOG_TYPE_DEFAULT
 #endif
 
-void uc_log(int type_verify, int opts, int type, const char* message);
-void uc_log_env_opts(int type_verify, int type, const char* message);
-void uc_log_env_verify(int opts, int type, const char* message);
-void uc_log_env(int type, const char* message);
+#if !defined(UC_LOG_OPTS)
+	#define UC_LOG_OPTS UC_LOG_OPT_DEFAULT
+#endif
+
+#define UC_LOG(type_name, message) \
+	uc_log(UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_##type_name, message)
+
+void uc_log(int verify, int opts, int type, const char* message);
+void uc_log_opts_str(int verify, const char* opts_str, int type, const char* message);
+void uc_log_verify_str(const char* verify_str, int opts, int type, const char* message);
+void uc_log_args_str(const char* verify_str, const char* opts_str, int type, const char* message);
 
 #endif
