@@ -4,20 +4,45 @@
 #include <stdbool.h>
 #include <time.h>
 #include <stdlib.h>
+#include <stdarg.h>
+#include <errno.h>
+
+void uc_log_format(char* buff, size_t buff_size, const char* format, ...) {
+	va_list args;
+	va_start(args, format);
+	vsnprintf(buff, buff_size, format, args);
+	va_end(args);
+}
+
+void uc_log_info(const char* message) {
+	return uc_log(UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_INFO, message);
+}
+
+void uc_log_warn(const char* message) {
+	return uc_log(UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_WARN, message);
+}
+
+void uc_log_err(const char* message) {
+	return uc_log(UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_ERR, message);
+}
+
+void uc_log_debug(const char* message) {
+	return uc_log(UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_DEBUG, message);
+}
 
 int __str_to_int(const char* str, int default_value);
 
-void uc_log_opts_str(int verify, const char* opts_str, int type, const char* message) {
+void uc_log_ostr(int verify, const char* opts_str, int type, const char* message) {
 	int opts = __str_to_int(opts_str, UC_LOG_OPTS);
 	return uc_log(verify, opts, type, message);
 }
 
-void uc_log_verify_str(const char* verify_str, int opts, int type, const char* message) {
+void uc_log_vstr(const char* verify_str, int opts, int type, const char* message) {
 	int verify = __str_to_int(verify_str, UC_LOG_TYPES);
 	return uc_log(verify, opts, type, message);
 }
 
-void uc_log_args_str(const char* verify_str, const char* opts_str, int type, const char* message) {
+void uc_log_vostr(const char* verify_str, const char* opts_str, int type, const char* message) {
 	int verify = __str_to_int(verify_str, UC_LOG_TYPES);
 	int opts = __str_to_int(opts_str, UC_LOG_OPTS);
 	return uc_log(verify, opts, type, message);
@@ -50,7 +75,7 @@ void uc_log(int verify, int opts, int type, const char* message) {
 		}
 	}
 
-	char stype[6] = "";
+	char stype[8] = "";
 	unsigned long long type_len = 0;
 	__type_message(&type_len, stype, sizeof(stype), type);
 	if (type_len > 0) {
@@ -142,7 +167,7 @@ void __time_message(unsigned long long* len, char* time_buff, size_t time_buff_s
 		return;
 	}
 
-	size_t size = strftime(time_buff, time_buff_size, "%c", &tm);
+	size_t size = strftime(time_buff, time_buff_size, UC_LOG_TIME_FORMAT, &tm);
 
 	if (!size) {
 		*len = 0;
@@ -152,7 +177,7 @@ void __time_message(unsigned long long* len, char* time_buff, size_t time_buff_s
 		return;
 	}
 
-	*len = size - 1;
+	*len = strlen(time_buff);
 }
 
 void __type_message(unsigned long long* len, char* type_buff, size_t type_buff_size, int type) {
