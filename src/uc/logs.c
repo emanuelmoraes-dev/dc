@@ -15,43 +15,43 @@ void uc_log_format(char* buff, size_t buff_size, const char* format, ...) {
 }
 
 void uc_log_info(const char* message) {
-	return uc_log(UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_INFO, message);
+	return uc_log(UC_LOG_PREFIX, UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_INFO, message);
 }
 
 void uc_log_warn(const char* message) {
-	return uc_log(UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_WARN, message);
+	return uc_log(UC_LOG_PREFIX, UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_WARN, message);
 }
 
 void uc_log_err(const char* message) {
-	return uc_log(UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_ERR, message);
+	return uc_log(UC_LOG_PREFIX, UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_ERR, message);
 }
 
 void uc_log_debug(const char* message) {
-	return uc_log(UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_DEBUG, message);
+	return uc_log(UC_LOG_PREFIX, UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_DEBUG, message);
 }
 
 int __str_to_int(const char* str, int default_value);
 
-void uc_log_ostr(int verify, const char* opts_str, int type, const char* message) {
+void uc_log_ostr(const char* prefix, int verify, const char* opts_str, int type, const char* message) {
 	int opts = __str_to_int(opts_str, UC_LOG_OPTS);
-	return uc_log(verify, opts, type, message);
+	return uc_log(prefix, verify, opts, type, message);
 }
 
-void uc_log_vstr(const char* verify_str, int opts, int type, const char* message) {
+void uc_log_vstr(const char* prefix, const char* verify_str, int opts, int type, const char* message) {
 	int verify = __str_to_int(verify_str, UC_LOG_TYPES);
-	return uc_log(verify, opts, type, message);
+	return uc_log(prefix, verify, opts, type, message);
 }
 
-void uc_log_vostr(const char* verify_str, const char* opts_str, int type, const char* message) {
+void uc_log_vostr(const char* prefix, const char* verify_str, const char* opts_str, int type, const char* message) {
 	int verify = __str_to_int(verify_str, UC_LOG_TYPES);
 	int opts = __str_to_int(opts_str, UC_LOG_OPTS);
-	return uc_log(verify, opts, type, message);
+	return uc_log(prefix, verify, opts, type, message);
 }
 
 void __time_message(unsigned long long* len, char* time_buff, size_t time_buff_size);
 void __type_message(unsigned long long* len, char* type_buff, size_t type_buff_size, int type);
 FILE* __file(int opts, int type);
-void uc_log(int verify, int opts, int type, const char* message) {
+void uc_log(const char* prefix, int verify, int opts, int type, const char* message) {
 	bool type_verify = !!(type&verify);
 	if (!type_verify) {
 		return;
@@ -64,8 +64,12 @@ void uc_log(int verify, int opts, int type, const char* message) {
 	const char space[] = " ";
 	unsigned long long space_len = strlen(space);
 
+	if (prefix != NULL && *prefix != '\0') {
+		size += strlen(prefix) + space_len;
+	}
+
 	bool opt_time = !!(opts&UC_LOG_OPT_TIME);
-	char stime[64] = "";
+	char stime[UC_LOG_TIME_BUFFSIZE] = "";
 	unsigned long long time_len = 0;
 	if (opt_time) {
 		__time_message(&time_len, stime, sizeof(stime));
@@ -98,15 +102,28 @@ void uc_log(int verify, int opts, int type, const char* message) {
 
 	*output = '\0';
 
-	if (time_len > 0) {
-		errno_t error = strcat_s(output, output_size, stime);
+	if (prefix != NULL && *prefix != '\0') {
+		errno_t error = strcat_s(output, output_size, prefix);
 		if (error) {
-			fprintf(stderr, "%s\n", message);
+			fprintf(file, "%s\n", message);
 			return;
 		}
 		error = strcat_s(output, output_size, space);
 		if (error) {
-			fprintf(stderr, "%s\n", message);
+			fprintf(file, "%s\n", message);
+			return;
+		}
+	}
+
+	if (time_len > 0) {
+		errno_t error = strcat_s(output, output_size, stime);
+		if (error) {
+			fprintf(file, "%s\n", message);
+			return;
+		}
+		error = strcat_s(output, output_size, space);
+		if (error) {
+			fprintf(file, "%s\n", message);
 			return;
 		}
 	}
@@ -114,12 +131,12 @@ void uc_log(int verify, int opts, int type, const char* message) {
 	if (type_len > 0) {
 		errno_t error = strcat_s(output, output_size, stype);
 		if (error) {
-			fprintf(stderr, "%s\n", message);
+			fprintf(file, "%s\n", message);
 			return;
 		}
 		error = strcat_s(output, output_size, space);
 		if (error) {
-			fprintf(stderr, "%s\n", message);
+			fprintf(file, "%s\n", message);
 			return;
 		}
 	}
@@ -127,7 +144,7 @@ void uc_log(int verify, int opts, int type, const char* message) {
 	if (message_len > 0) {
 		errno_t error = strcat_s(output, output_size, message);
 		if (error) {
-			fprintf(stderr, "%s\n", message);
+			fprintf(file, "%s\n", message);
 			return;
 		}
 	}

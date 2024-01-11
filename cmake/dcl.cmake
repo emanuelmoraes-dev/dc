@@ -1,6 +1,7 @@
 add_library(
     dcl
     SHARED
+        src/dcl/logs.c
         src/dcl/errors.c
         src/dcl/errors/base.c
         src/dcl/errors/alloc.c

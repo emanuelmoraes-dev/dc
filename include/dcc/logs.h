@@ -4,11 +4,6 @@
 #include "config/dcc.h"
 #include "uc/logs.h"
 
-void log_info(const char* message);
-void log_warn(const char* message);
-void log_err(const char* message);
-void log_debug(const char* message);
-
 #if !defined(DCC_LOG_TYPES)
 	#define DCC_LOG_TYPES DCC_LOG_TYPE_DEFAULT
 #endif
@@ -16,5 +11,14 @@ void log_debug(const char* message);
 #if !defined(DCC_LOG_OPTS)
 	#define DCC_LOG_OPTS DCC_LOG_OPT_DEFAULT
 #endif
+
+#if !defined(DCC_LOG_PREFIX)
+	#define DCC_LOG_PREFIX DCC_LOG_PREFIX_DEFAULT
+#endif
+
+void log_info(const char* message);
+void log_warn(const char* message);
+void log_err(const char* message);
+void log_debug(const char* message);
 
 #endif

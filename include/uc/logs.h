@@ -17,6 +17,14 @@
 	#define UC_LOG_TIME_FORMAT UC_LOG_TIME_FORMAT_DEFAULT
 #endif
 
+#if !defined(UC_LOG_TIME_BUFFSIZE)
+	#define UC_LOG_TIME_BUFFSIZE UC_LOG_TIME_BUFFSIZE_DEFAULT
+#endif
+
+#if !defined(UC_LOG_PREFIX)
+	#define UC_LOG_PREFIX UC_LOG_PREFIX_DEFAULT
+#endif
+
 #define UC_LOG_BUFFER(buff_name, format_name, format, args_buff_size) \
 	char format_name[] = format;\
 	char buff_name[strlen(format_name) + (args_buff_size) + 1]
@@ -26,9 +34,9 @@ void uc_log_info(const char* message);
 void uc_log_warn(const char* message);
 void uc_log_err(const char* message);
 void uc_log_debug(const char* message);
-void uc_log(int verify, int opts, int type, const char* message);
-void uc_log_ostr(int verify, const char* opts_str, int type, const char* message);
-void uc_log_vstr(const char* verify_str, int opts, int type, const char* message);
-void uc_log_vostr(const char* verify_str, const char* opts_str, int type, const char* message);
+void uc_log(const char* prefix, int verify, int opts, int type, const char* message);
+void uc_log_ostr(const char* prefix, int verify, const char* opts_str, int type, const char* message);
+void uc_log_vstr(const char* prefix, const char* verify_str, int opts, int type, const char* message);
+void uc_log_vostr(const char* prefix, const char* verify_str, const char* opts_str, int type, const char* message);
 
 #endif
