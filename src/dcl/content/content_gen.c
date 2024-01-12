@@ -1,4 +1,5 @@
 #include "dcl/content.h"
+#include "dcl/logs.h"
 #include "uc/hash_map.h"
 #include "uc/linked_list.h"
 #include "uc/array.h"

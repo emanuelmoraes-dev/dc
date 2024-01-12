@@ -14,22 +14,6 @@ void uc_log_format(char* buff, size_t buff_size, const char* format, ...) {
 	va_end(args);
 }
 
-void uc_log_info(const char* message) {
-	return uc_log(UC_LOG_PREFIX, UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_INFO, message);
-}
-
-void uc_log_warn(const char* message) {
-	return uc_log(UC_LOG_PREFIX, UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_WARN, message);
-}
-
-void uc_log_err(const char* message) {
-	return uc_log(UC_LOG_PREFIX, UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_ERR, message);
-}
-
-void uc_log_debug(const char* message) {
-	return uc_log(UC_LOG_PREFIX, UC_LOG_TYPES, UC_LOG_OPTS, UC_LOG_TYPE_DEBUG, message);
-}
-
 int __str_to_int(const char* str, int default_value);
 
 void uc_log_ostr(const char* prefix, int verify, const char* opts_str, int type, const char* message) {
