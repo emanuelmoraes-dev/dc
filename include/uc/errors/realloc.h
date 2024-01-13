@@ -3,9 +3,7 @@
 
 #include "uc/errors/base.h"
 
-#define UC_ERR_ID_REALLOC (2)
-#define UC_ERR_THROW_REALLOC(arg) __UC_ERR_THROW(UC_ERR_ID_REALLOC, arg)
-#define UC_ERR_IS_REALLOC(error) __UC_ERR_IS(UC_ERR_ID_REALLOC, error)
+UC_ERR_DEF(realloc)
 
 #define UC_ERR_MESSAGE_REALLOC "Error When Relocating"
 

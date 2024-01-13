@@ -1,5 +1,7 @@
 #include "uc/errors/empty.h"
 
+UC_ERR_IMPL(empty, 4)
+
 size_t uc_err_arg_strlen_empty(int arg) {
 	switch(arg) {
 	case UC_ERR_ARG_EMPTY_HASH_MAP: return strlen(UC_ERR_ARG_MESSAGE_EMPTY_HASH_MAP);

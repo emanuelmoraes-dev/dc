@@ -1,5 +1,7 @@
 #include "dcl/errors/not_found.h"
 
+DCL_ERR_IMPL(not_found, 4)
+
 size_t dcl_err_arg_strlen_not_found(int arg) {
 	switch(arg) {
 	case DCL_ERR_ARG_NOT_FOUND_ALPHABET_KEY: return strlen(DCL_ERR_ARG_MESSAGE_NOT_FOUND_ALPHABET_KEY);

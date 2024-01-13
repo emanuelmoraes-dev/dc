@@ -190,7 +190,7 @@ c_err foo(int argc, const char* argv[]) {
 
             uc_hash_map_free(&dcl_sentences_result, dcl_sentences_free);
             dcl_content_free(&content);
-            return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_RESULT_KEY);
+            return dcl_err_throw_null(DCL_ERR_ARG_NULL_RESULT_KEY);
         }
 
         if (sentences == NULL || sentences->array == NULL) {
@@ -198,7 +198,7 @@ c_err foo(int argc, const char* argv[]) {
 
             uc_hash_map_free(&dcl_sentences_result, dcl_sentences_free);
             dcl_content_free(&content);
-            return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_RESULT_SENTENCES);
+            return dcl_err_throw_null(DCL_ERR_ARG_NULL_RESULT_SENTENCES);
         }
 
         for (int i = 0; i < sentences->size; ++i) {
@@ -208,7 +208,7 @@ c_err foo(int argc, const char* argv[]) {
 
                 uc_hash_map_free(&dcl_sentences_result, dcl_sentences_free);
                 dcl_content_free(&content);
-                return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_RESULT_SENTENCE);
+                return dcl_err_throw_null(DCL_ERR_ARG_NULL_RESULT_SENTENCE);
             }
             printf("#> %s: %s", target_key, sentence);
         }

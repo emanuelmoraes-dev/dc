@@ -1,5 +1,7 @@
 #include "uc/errors/realloc.h"
 
+UC_ERR_IMPL(realloc, 2)
+
 size_t uc_err_arg_strlen_realloc(int arg) {
 	switch(arg) {
 	case UC_ERR_ARG_REALLOC_HASH_MAP_DATA: return strlen(UC_ERR_ARG_MESSAGE_REALLOC_HASH_MAP_DATA);

@@ -3,9 +3,7 @@
 
 #include "uc/errors/base.h"
 
-#define UC_ERR_ID_ALLOC (1)
-#define UC_ERR_THROW_ALLOC(arg) __UC_ERR_THROW(UC_ERR_ID_ALLOC, arg)
-#define UC_ERR_IS_ALLOC(error) __UC_ERR_IS(UC_ERR_ID_ALLOC, error)
+UC_ERR_DEF(alloc)
 
 #define UC_ERR_MESSAGE_ALLOC "Error When Allocating"
 

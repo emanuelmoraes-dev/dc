@@ -1,5 +1,7 @@
 #include "dcl/errors/null.h"
 
+DCL_ERR_IMPL(null, 5)
+
 size_t dcl_err_arg_strlen_null(int arg) {
 	switch(arg) {
 	case DCL_ERR_ARG_NULL_ALPHABET_KEY: return strlen(DCL_ERR_ARG_MESSAGE_NULL_ALPHABET_KEY);

@@ -1,5 +1,7 @@
 #include "dcl/errors/index_out.h"
 
+DCL_ERR_IMPL(index_out, 3)
+
 size_t dcl_err_arg_strlen_index_out(int arg) {
 	switch(arg) {
 	case DCL_ERR_ARG_INDEX_OUT_ALPHABET: return strlen(DCL_ERR_ARG_MESSAGE_INDEX_OUT_ALPHABET);

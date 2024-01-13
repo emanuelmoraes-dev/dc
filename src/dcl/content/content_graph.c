@@ -13,7 +13,7 @@ bool dcl_content_graph_contains_target_key(const DclContent* content, const char
 
 c_err dcl_content_graph_set_target_key(DclContent* content, const char* target_key) {
 	if (target_key == NULL) {
-		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
+		return dcl_err_throw_null(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
 
 	if (dcl_content_graph_contains_target_key(content, target_key)) {
@@ -23,7 +23,7 @@ c_err dcl_content_graph_set_target_key(DclContent* content, const char* target_k
 	UcHashMap* dep = (UcHashMap*) malloc(sizeof(UcHashMap));
 
 	if (dep == NULL) {
-		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_DEP_GRAPH);
+		return dcl_err_throw_alloc(DCL_ERR_ARG_ALLOC_DEP_GRAPH);
 	}
 
 	int keys_size = content->keys_size;
@@ -38,7 +38,7 @@ c_err dcl_content_graph_set_target_key(DclContent* content, const char* target_k
 
 	if (new_target_key == NULL) {
 		free(dep);
-		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_ODDS_GRAPH_KEY);
+		return dcl_err_throw_alloc(DCL_ERR_ARG_ALLOC_ODDS_GRAPH_KEY);
 	}
 
 	error = uc_hash_map_insert(&content->odds_graph, new_target_key, dep);
@@ -87,28 +87,28 @@ void __graph_free(DclOddsValue** graph, int size) {
 
 c_err dcl_content_graph_set_dep_key(DclContent* content, const char* target_key, const char* dep_key) {
 	if (dep_key == NULL) {
-		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
+		return dcl_err_throw_null(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
 
 	if (target_key == NULL) {
-		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
+		return dcl_err_throw_null(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
 
 	if (!dcl_content_graph_contains_target_key(content, target_key)) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_TARGET_KEY);
+		return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_GRAPH_TARGET_KEY);
 	}
 
 	UcHashMap* dep = (UcHashMap*) uc_hash_map_get(&content->odds_graph, target_key);
 
 	if (dep == NULL) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP_KEY);
+		return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP_KEY);
 	}
 
 	DclOdds* odds = (DclOdds*) malloc(sizeof(DclOdds));
 
 	if (odds == NULL) {
 		free(dep);
-		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_ODDS);
+		return dcl_err_throw_alloc(DCL_ERR_ARG_ALLOC_ODDS);
 	}
 
 	odds->content = content;
@@ -117,7 +117,7 @@ c_err dcl_content_graph_set_dep_key(DclContent* content, const char* target_key,
 	if (odds->graph == NULL) {
 		free(odds);
 		free(dep);
-		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_ODDS_GRAPH);
+		return dcl_err_throw_alloc(DCL_ERR_ARG_ALLOC_ODDS_GRAPH);
 	}
 
 	for (int i = 0; i < content->alphabet_size; ++i) {
@@ -127,7 +127,7 @@ c_err dcl_content_graph_set_dep_key(DclContent* content, const char* target_key,
 			__graph_free(odds->graph, i);
 			free(odds);
 			free(dep);
-			return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_ODDS_GRAPH_NODE);
+			return dcl_err_throw_alloc(DCL_ERR_ARG_ALLOC_ODDS_GRAPH_NODE);
 		}
 
 		for (int j = 0; j < content->alphabet_size; ++j) {
@@ -142,7 +142,7 @@ c_err dcl_content_graph_set_dep_key(DclContent* content, const char* target_key,
 		__graph_free(odds->graph, content->alphabet_size);
 		free(odds);
 		free(dep);
-		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_DEP_KEY);
+		return dcl_err_throw_alloc(DCL_ERR_ARG_ALLOC_DEP_KEY);
 	}
 
 	c_err error = uc_hash_map_insert(dep, new_dep_key, odds);
@@ -159,27 +159,27 @@ c_err dcl_content_graph_set_dep_key(DclContent* content, const char* target_key,
 
 c_err dcl_content_graph_borrow_odds(const DclContent* content, const char* target_key, const char* dep_key, borrow DclOdds* odds) {
 	if (dep_key == NULL) {
-		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
+		return dcl_err_throw_null(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
 
 	if (target_key == NULL) {
-		return DCL_ERR_THROW_NULL(DCL_ERR_ARG_NULL_GRAPH_KEY);
+		return dcl_err_throw_null(DCL_ERR_ARG_NULL_GRAPH_KEY);
 	}
 
 	if (!dcl_content_graph_contains_dep_key(content, target_key, dep_key)) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_TARGET_KEY);
+		return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_GRAPH_TARGET_KEY);
 	}
 
 	UcHashMap* dep = (UcHashMap*) uc_hash_map_get(&content->odds_graph, target_key);
 
 	if (dep == NULL) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP_KEY);
+		return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP_KEY);
 	}
 
 	DclOdds* item = (DclOdds*) uc_hash_map_get(dep, dep_key);
 
 	if (item == NULL) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_ODDS);
+		return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_ODDS);
 	}
 
 	*odds = *item;
@@ -189,7 +189,7 @@ c_err dcl_content_graph_borrow_odds(const DclContent* content, const char* targe
 
 c_err dcl_content_graph_set_odds(DclContent* content, const char* target_key, const char* dep_key, int index1, int index2, float factor, int required) {
 	if (index1 < 0 || index2 < 0 || index1 >= content->alphabet_size || index2 >= content->alphabet_size) {
-		return DCL_ERR_THROW_INDEX_OUT(DCL_ERR_ARG_INDEX_OUT_ODDS);
+		return dcl_err_throw_index_out(DCL_ERR_ARG_INDEX_OUT_ODDS);
 	}
 
 	DclOdds odds;
@@ -198,13 +198,13 @@ c_err dcl_content_graph_set_odds(DclContent* content, const char* target_key, co
 	DclOddsValue** graph = odds.graph;
 
 	if (graph == NULL) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH);
+		return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_GRAPH);
 	}
 
 	DclOddsValue* node = graph[index1];
 
 	if (node == NULL) {
-		return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_NODE);
+		return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_GRAPH_NODE);
 	}
 
 	node[index2].factor = factor;

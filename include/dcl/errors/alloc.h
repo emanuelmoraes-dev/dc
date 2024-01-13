@@ -3,9 +3,7 @@
 
 #include "dcl/errors/base.h"
 
-#define DCL_ERR_ID_ALLOC (1)
-#define DCL_ERR_THROW_ALLOC(arg) __DCL_ERR_THROW(DCL_ERR_ID_ALLOC, arg)
-#define DCL_ERR_IS_ALLOC(error) __DCL_ERR_IS(DCL_ERR_ID_ALLOC, error)
+DCL_ERR_DEF(alloc)
 
 #define DCL_ERR_MESSAGE_ALLOC "Error When Allocating"
 

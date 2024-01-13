@@ -1,5 +1,7 @@
 #include "uc/errors/alloc.h"
 
+UC_ERR_IMPL(alloc, 1)
+
 size_t uc_err_arg_strlen_alloc(int arg) {
 	switch(arg) {
 	case UC_ERR_ARG_ALLOC_HASH_MAP_DATA: return strlen(UC_ERR_ARG_MESSAGE_ALLOC_HASH_MAP_DATA);

@@ -3,9 +3,7 @@
 
 #include "dcl/errors/base.h"
 
-#define DCL_ERR_ID_NULL (4)
-#define DCL_ERR_THROW_NULL(arg) __DCL_ERR_THROW(DCL_ERR_ID_NULL, arg)
-#define DCL_ERR_IS_NULL(error) __DCL_ERR_IS(DCL_ERR_ID_NULL, error)
+DCL_ERR_DEF(null)
 
 #define DCL_ERR_MESSAGE_NULL "Null Pointer"
 

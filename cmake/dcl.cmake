@@ -4,6 +4,7 @@ add_library(
         src/dcl/errors.c
         src/dcl/errors/base.c
         src/dcl/errors/alloc.c
+        src/dcl/errors/errno.c
         src/dcl/errors/index_out.c
         src/dcl/errors/null.c
         src/dcl/errors/not_found.c

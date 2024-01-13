@@ -1,5 +1,7 @@
 #include "uc/errors/not_found.h"
 
+UC_ERR_IMPL(not_found, 3)
+
 size_t uc_err_arg_strlen_not_found(int arg) {
 	switch(arg) {
 	case UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM: return strlen(UC_ERR_ARG_MESSAGE_NOT_FOUND_HASH_MAP_ITEM);

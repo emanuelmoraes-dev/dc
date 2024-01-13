@@ -3,9 +3,7 @@
 
 #include "uc/errors/base.h"
 
-#define UC_ERR_ID_OVERFLOW (5)
-#define UC_ERR_THROW_OVERFLOW(args) __UC_ERR_THROW(UC_ERR_ID_OVERFLOW, args)
-#define UC_ERR_IS_OVERFLOW(error) __UC_ERR_IS(UC_ERR_ID_OVERFLOW, error)
+UC_ERR_DEF(overflow)
 
 #define UC_ERR_MESSAGE_OVERFLOW "Overflow Error"
 

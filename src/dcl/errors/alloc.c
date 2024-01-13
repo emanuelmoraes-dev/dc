@@ -1,5 +1,7 @@
 #include "dcl/errors/alloc.h"
 
+DCL_ERR_IMPL(alloc, 2)
+
 size_t dcl_err_arg_strlen_alloc(int arg) {
 	switch(arg) {
 	case DCL_ERR_ARG_ALLOC_DEP_GRAPH: return strlen(DCL_ERR_ARG_MESSAGE_ALLOC_DEP_GRAPH);

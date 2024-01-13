@@ -14,7 +14,7 @@ c_err uc_linked_list_init(UcLinkedList* linked_list) {
 	linked_list->__head = __new_element();
 
 	if (linked_list->__head == NULL) {
-		return UC_ERR_THROW_ALLOC(UC_ERR_ARG_ALLOC_LINKED_LIST_HEAD);
+		return uc_err_throw_alloc(UC_ERR_ARG_ALLOC_LINKED_LIST_HEAD);
 	}
 
 	linked_list->__last = linked_list->__head;
@@ -34,7 +34,7 @@ c_err uc_linked_list_head(UcLinkedList* linked_list, borrow UcLinkedListElement*
 
         if (linked_list->__head == NULL) {
         	*head = NULL;
-        	return UC_ERR_THROW_ALLOC(UC_ERR_ARG_ALLOC_LINKED_LIST_HEAD);
+        	return uc_err_throw_alloc(UC_ERR_ARG_ALLOC_LINKED_LIST_HEAD);
         }
 
         linked_list->size = 0;
@@ -209,7 +209,7 @@ c_err uc_linked_list_add_next(UcLinkedList* linked_list, UcLinkedListElement* be
     ant->next = __new_element();
 
     if (ant->next == NULL) {
-    	return UC_ERR_THROW_ALLOC(UC_ERR_ARG_ALLOC_LINKED_LIST_NEW_ELEMENT);
+    	return uc_err_throw_alloc(UC_ERR_ARG_ALLOC_LINKED_LIST_NEW_ELEMENT);
     }
 
     ant->next->value = value;

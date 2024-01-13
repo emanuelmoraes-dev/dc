@@ -29,7 +29,7 @@ c_err uc_hash_map_init(UcHashMap* hash_map, int capacity) {
 	hash_map->data = __uc_hash_map_new_data(capacity);
 
 	if (hash_map->data == NULL) {
-		return UC_ERR_THROW_ALLOC(UC_ERR_ARG_ALLOC_HASH_MAP_DATA);
+		return uc_err_throw_alloc(UC_ERR_ARG_ALLOC_HASH_MAP_DATA);
 	}
 
 	return C_OK;
@@ -116,15 +116,15 @@ c_err __uc_hash_map_realloc(UcHashMap* hash_map) {
 	UcKeyValue* bk_data = hash_map->data;
 	int bk_capacity = hash_map->capacity;
 
-	if (UC_ERR_IS_OVERFLOW_LARGE_MULT(bk_capacity, 2, INT_MAX)) {
-		return UC_ERR_THROW_OVERFLOW(UC_ERR_ARG_OVERFLOW_LARGE_HASH_MAP_CAPACITY);
+	if (uc_err_is_overflow_LARGE_MULT(bk_capacity, 2, INT_MAX)) {
+		return uc_err_throw_overflow(UC_ERR_ARG_OVERFLOW_LARGE_HASH_MAP_CAPACITY);
 	}
 
 	int new_capacity = bk_capacity * 2;
 	UcKeyValue* new_data = __uc_hash_map_new_data(new_capacity);
 
 	if (new_data == NULL) {
-		return UC_ERR_THROW_REALLOC(UC_ERR_ARG_REALLOC_HASH_MAP_DATA);
+		return uc_err_throw_realloc(UC_ERR_ARG_REALLOC_HASH_MAP_DATA);
 	}
 
 	hash_map->data = new_data;
@@ -216,7 +216,7 @@ c_err uc_hash_map_next(const UcHashMap* hash_map, UcHashMapIterator* iterator) {
 	int index = __uc_hash_map_next_index(iterator);
 
 	if (index < 0 || index >= hash_map->capacity) {
-		return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
+		return uc_err_throw_not_found(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
 	}
 
 	for (int i = index; i < capacity; ++i) {
@@ -225,16 +225,16 @@ c_err uc_hash_map_next(const UcHashMap* hash_map, UcHashMapIterator* iterator) {
 			return C_OK;
 		}
 	}
-	return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
+	return uc_err_throw_not_found(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
 }
 
 c_err uc_hash_map_borrow_key_value(const UcHashMap* hash_map, const UcHashMapIterator* iterator, borrow char** key, borrow void** value) {
 	int index = iterator->index;
 	if (index < 0 || index >= hash_map->capacity) {
-		return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
+		return uc_err_throw_not_found(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
 	}
 	if (hash_map->data[index].key == NULL) {
-		return UC_ERR_THROW_NOT_FOUND(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
+		return uc_err_throw_not_found(UC_ERR_ARG_NOT_FOUND_HASH_MAP_ITEM);
 	}
 	*key = hash_map->data[index].key;
 	*value = hash_map->data[index].value;

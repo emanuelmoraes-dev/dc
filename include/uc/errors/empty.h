@@ -3,9 +3,7 @@
 
 #include "uc/errors/base.h"
 
-#define UC_ERR_ID_EMPTY (4)
-#define UC_ERR_THROW_EMPTY(args) __UC_ERR_THROW(UC_ERR_ID_EMPTY, args)
-#define UC_ERR_IS_EMPTY(error) __UC_ERR_IS(UC_ERR_ID_EMPTY, error)
+UC_ERR_DEF(empty)
 
 #define UC_ERR_MESSAGE_EMPTY "Empty"
 

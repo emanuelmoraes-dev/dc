@@ -3,9 +3,7 @@
 
 #include "uc/errors/base.h"
 
-#define UC_ERR_ID_NOT_FOUND (3)
-#define UC_ERR_THROW_NOT_FOUND(args) __UC_ERR_THROW(UC_ERR_ID_NOT_FOUND, args)
-#define UC_ERR_IS_NOT_FOUND(error) __UC_ERR_IS(UC_ERR_ID_NOT_FOUND, error)
+UC_ERR_DEF(not_found)
 
 #define UC_ERR_MESSAGE_NOT_FOUND "Not Found"
 

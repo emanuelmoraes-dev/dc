@@ -3,9 +3,7 @@
 
 #include "dcl/errors/base.h"
 
-#define DCL_ERR_ID_NOT_FOUND (3)
-#define DCL_ERR_THROW_NOT_FOUND(args) __DCL_ERR_THROW(DCL_ERR_ID_NOT_FOUND, args)
-#define DCL_ERR_IS_NOT_FOUND(error) __DCL_ERR_IS(DCL_ERR_ID_NOT_FOUND, error)
+DCL_ERR_DEF(not_found)
 
 #define DCL_ERR_MESSAGE_NOT_FOUND "Not Found"
 

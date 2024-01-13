@@ -37,7 +37,7 @@ c_err __gen_targets(const DclContent* content, UcHashMap* dcl_sentences_result, 
 		DclSentences* sentences = (DclSentences*) uc_hash_map_get(&content->alphabet, target_key);
 
 		if (sentences == NULL) {
-			return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_ALPHABET_KEY);
+			return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_ALPHABET_KEY);
 		}
 
 		StringEntry sentences_entries[sentences->size];
@@ -84,27 +84,27 @@ c_err __gen_dep(const DclContent* content, UcHashMap* dcl_sentences_result, cons
 
 		if (sentences == NULL) {
 			uc_linked_list_free(&dep_sentences);
-			return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_ALPHABET_KEY);
+			return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_ALPHABET_KEY);
 		}
 
 		const UcHashMap* dep = (UcHashMap*) uc_hash_map_get(&content->odds_graph, target_key);
 
 		if (dep == NULL) {
 			uc_linked_list_free(&dep_sentences);
-			return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP_KEY);
+			return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_GRAPH_DEP_KEY);
 		}
 
 		const DclOdds* odds = (DclOdds*) uc_hash_map_get(dep, dep_key);
 
 		if (odds == NULL) {
 			uc_linked_list_free(&dep_sentences);
-			return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_ODDS);
+			return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_ODDS);
 		}
 
 		const DclOddsValue* src_node = odds->graph[target_sentence->index];
 
 		if (src_node == NULL) {
-			return DCL_ERR_THROW_NOT_FOUND(DCL_ERR_ARG_NOT_FOUND_GRAPH_NODE);
+			return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_GRAPH_NODE);
 		}
 
 		DclOddsValue node[content->alphabet_size];
@@ -205,7 +205,7 @@ c_err __gen_result(const DclContent* content, UcHashMap* dcl_sentences_result, c
 	DclSentences* store_sentences = (DclSentences*) malloc(sizeof(DclSentences));
 
 	if (store_sentences == NULL) {
-		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_SENTENCES);
+		return dcl_err_throw_alloc(DCL_ERR_ARG_ALLOC_SENTENCES);
 	}
 
 	store_sentences->size = 0;
@@ -213,7 +213,7 @@ c_err __gen_result(const DclContent* content, UcHashMap* dcl_sentences_result, c
 
 	if (store_sentences->array == NULL) {
 		free(store_sentences);
-		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_SENTENCES);
+		return dcl_err_throw_alloc(DCL_ERR_ARG_ALLOC_SENTENCES);
 	}
 
 	for (int i = 0; i < dep_sentences->size; ++i) {
@@ -227,7 +227,7 @@ c_err __gen_result(const DclContent* content, UcHashMap* dcl_sentences_result, c
 
 		if (sentence == NULL) {
 			dcl_sentences_free(store_sentences);
-			return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_RESULT_SENTENCE);
+			return dcl_err_throw_alloc(DCL_ERR_ARG_ALLOC_RESULT_SENTENCE);
 		}
 
 		store_sentences->array[index++] = sentence;
@@ -244,7 +244,7 @@ c_err __gen_result(const DclContent* content, UcHashMap* dcl_sentences_result, c
 
 	if (store_target_key == NULL) {
 		dcl_sentences_free(store_sentences);
-		return DCL_ERR_THROW_ALLOC(DCL_ERR_ARG_ALLOC_RESULT_KEY);
+		return dcl_err_throw_alloc(DCL_ERR_ARG_ALLOC_RESULT_KEY);
 	}
 
 	c_err error = uc_hash_map_insert(dcl_sentences_result, store_target_key, store_sentences);

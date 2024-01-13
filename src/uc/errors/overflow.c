@@ -1,5 +1,7 @@
 #include "uc/errors/overflow.h"
 
+UC_ERR_IMPL(overflow, 5)
+
 size_t uc_err_arg_strlen_overflow(int arg) {
 	switch(arg) {
 	case UC_ERR_ARG_OVERFLOW_LARGE: return strlen(UC_ERR_ARG_MESSAGE_OVERFLOW_LARGE);
