@@ -1,5 +1,5 @@
-#ifndef DCC_CONFIG_OUTPUT_H_INCLUDED
-#define DCC_CONFIG_OUTPUT_H_INCLUDED
+#ifndef _DCC_CONFIG_OUTPUT_H_INCLUDED_
+#define _DCC_CONFIG_OUTPUT_H_INCLUDED_
 
 #include "uc/logs/args.h"
 

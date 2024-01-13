@@ -1,5 +1,5 @@
-#ifndef DCL_ERRORS_BASE_H_INCLUDED
-#define DCL_ERRORS_BASE_H_INCLUDED
+#ifndef _DCL_ERRORS_BASE_H_INCLUDED_
+#define _DCL_ERRORS_BASE_H_INCLUDED_
 
 #include <string.h>
 #include <errno.h>

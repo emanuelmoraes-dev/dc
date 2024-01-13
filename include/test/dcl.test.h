@@ -1,5 +1,5 @@
-#ifndef TEST_DCL_H_INCLUDED
-#define TEST_DCL_H_INCLUDED
+#ifndef _TEST_DCL_H_INCLUDED_
+#define _TEST_DCL_H_INCLUDED_
 
 void test_dcl();
 void test_dcl_errors();

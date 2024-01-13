@@ -1,5 +1,5 @@
-#ifndef UC_ERRORS_OVERFLOW_H_INCLUDED
-#define UC_ERRORS_OVERFLOW_H_INCLUDED
+#ifndef _UC_ERRORS_OVERFLOW_H_INCLUDED_
+#define _UC_ERRORS_OVERFLOW_H_INCLUDED_
 
 #include "uc/errors/base.h"
 

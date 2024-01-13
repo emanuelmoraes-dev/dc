@@ -1,5 +1,5 @@
-#ifndef UC_FISHER_YATES_H_INCLUDED
-#define UC_FISHER_YATES_H_INCLUDED
+#ifndef _UC_FISHER_YATES_H_INCLUDED_
+#define _UC_FISHER_YATES_H_INCLUDED_
 
 #include "uc/array.h"
 

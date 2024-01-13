@@ -1,5 +1,5 @@
-#ifndef DCL_CONTENT_H_INCLUDED
-#define DCL_CONTENT_H_INCLUDED
+#ifndef _DCL_CONTENT_H_INCLUDED_
+#define _DCL_CONTENT_H_INCLUDED_
 
 #include "uc/tags.h"
 #include "uc/hash_map.h"

@@ -1,5 +1,5 @@
-#ifndef UC_CONFIG_TRACE_H_INCLUDED
-#define UC_CONFIG_TRACE_H_INCLUDED
+#ifndef _UC_CONFIG_TRACE_H_INCLUDED_
+#define _UC_CONFIG_TRACE_H_INCLUDED_
 
 #include "uc/logs/args.h"
 

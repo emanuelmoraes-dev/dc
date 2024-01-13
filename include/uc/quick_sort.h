@@ -1,5 +1,5 @@
-#ifndef UC_QUICK_SORT_H_INCLUDED
-#define UC_QUICK_SORT_H_INCLUDED
+#ifndef _UC_QUICK_SORT_H_INCLUDED_
+#define _UC_QUICK_SORT_H_INCLUDED_
 
 #include "uc/array.h"
 

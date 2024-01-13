@@ -1,5 +1,5 @@
-#ifndef DCL_ERRORS_INDEX_OUT_H_INCLUDED
-#define DCL_ERRORS_INDEX_OUT_H_INCLUDED
+#ifndef _DCL_ERRORS_INDEX_OUT_H_INCLUDED_
+#define _DCL_ERRORS_INDEX_OUT_H_INCLUDED_
 
 #include "dcl/errors/base.h"
 

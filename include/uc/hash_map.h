@@ -1,5 +1,5 @@
-#ifndef UC_HASH_MAP_H_INCLUDED
-#define UC_HASH_MAP_H_INCLUDED
+#ifndef _UC_HASH_MAP_H_INCLUDED_
+#define _UC_HASH_MAP_H_INCLUDED_
 
 #include "uc/errors.h"
 #include "uc/tags.h"

@@ -1,5 +1,5 @@
-#ifndef UC_ARRAY_H_INCLUDED
-#define UC_ARRAY_H_INCLUDED
+#ifndef _UC_ARRAY_H_INCLUDED_
+#define _UC_ARRAY_H_INCLUDED_
 
 #include "uc/tags.h"
 #include <stdlib.h>

@@ -1,5 +1,5 @@
-#ifndef DCC_LOGS_H_INCLUDED
-#define DCC_LOGS_H_INCLUDED
+#ifndef _DCC_LOGS_H_INCLUDED_
+#define _DCC_LOGS_H_INCLUDED_
 
 #include "config/dcc.h"
 #include "uc/logs.h"

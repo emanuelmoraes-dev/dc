@@ -1,5 +1,5 @@
-#ifndef UC_LOGS_H_INCLUDED
-#define UC_LOGS_H_INCLUDED
+#ifndef _UC_LOGS_H_INCLUDED_
+#define _UC_LOGS_H_INCLUDED_
 
 #include "config/uc.h"
 #include <stddef.h>
