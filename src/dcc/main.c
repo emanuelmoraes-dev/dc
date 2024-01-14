@@ -223,7 +223,7 @@ c_err foo(int argc, const char* argv[]) {
     uc_hash_map_free(&dcl_sentences_result, dcl_sentences_free);
     dcl_content_free(&content);
 
-    printf("$> done!\n");
+    LOG(INFO, "$> done!\n");
     return C_OK;
 }
 

@@ -25,6 +25,12 @@ DCL_ERR_DEF(null)
 #define DCL_ERR_ARG_NULL_RESULT_SENTENCE (6)
 #define DCL_ERR_ARG_MESSAGE_NULL_RESULT_SENTENCE "Result Sentence"
 
+#define DCL_ERR_ARG_NULL_NODE (7)
+#define DCL_ERR_ARG_MESSAGE_NULL_NODE "Node"
+
+#define DCL_ERR_ARG_NULL_ODDS_VALUE (8)
+#define DCL_ERR_ARG_MESSAGE_NULL_ODDS_VALUE "Odds Value"
+
 size_t dcl_err_arg_strlen_null(int arg);
 errno_t dcl_err_arg_strcat_s_null(int arg, char* message, rsize_t size);
 

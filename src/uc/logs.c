@@ -218,12 +218,12 @@ void __type_message(unsigned long long* len, char* type_buff, size_t type_buff_s
 
 FILE* __file(int opts, int type) {
 	bool opt_stdout = !!(opts&UC_LOG_OPT_STDOUT);
-	bool opt_err_stdout = !!(opts&UC_LOG_OPT_ERR_STDOUT);
-	bool opt_err_stderr = !!(opts&UC_LOG_OPT_ERR_STDERR);
-	bool type_err = !!(type&UC_LOG_TYPE_ERR);
+	bool opt_info_stdout = !!(opts&UC_LOG_OPT_INFO_STDOUT);
+	bool opt_info_stderr = !!(opts&UC_LOG_OPT_INFO_STDERR);
+	bool type_info = !!(type&UC_LOG_TYPE_INFO);
 
-	if (type_err && opt_err_stdout != opt_err_stderr) {
-		opt_stdout = opt_err_stdout;
+	if (type_info && opt_info_stdout != opt_info_stderr) {
+		opt_stdout = opt_info_stdout;
 	}
 
 	if (opt_stdout) {
