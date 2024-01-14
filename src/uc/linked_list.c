@@ -523,7 +523,6 @@ bool uc_linked_list_clear_eraser_destructor_by_head(UcLinkedList* linked_list, U
  */
 void uc_linked_list_free(UcLinkedList* linked_list) {
 	uc_linked_list_clear_by_head(linked_list, NULL);
-	free(linked_list);
 }
 
 UcLinkedListElement* __new_element() {
