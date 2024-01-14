@@ -1,7 +1,7 @@
 #ifndef _UC_CONFIG_OUTPUT_H_INCLUDED_
 #define _UC_CONFIG_OUTPUT_H_INCLUDED_
 
-// DCC(OUTPUT) TIME [stderr(stderr(INFO|WARN|ERR)] MESSAGE
+// DCC TIME [stderr(stderr(INFO|WARN|ERR)] MESSAGE
 
 #include "uc/logs/args.h"
 
@@ -9,7 +9,7 @@
 
 #define UC_LOG_TYPE_DEFAULT UC_LOG_TYPE_INFO|UC_LOG_TYPE_WARN|UC_LOG_TYPE_ERR
 #define UC_LOG_OPT_DEFAULT UC_LOG_OPT_TIME
-#define UC_LOG_PREFIX_DEFAULT "UC(OUTPUT)"
+#define UC_LOG_PREFIX_DEFAULT "UC"
 
 // compile config
 

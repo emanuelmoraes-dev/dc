@@ -165,7 +165,7 @@ c_err __gen_dep(const DclContent* content, UcHashMap* dcl_sentences_result, cons
 			return dcl_err_throw_not_found(DCL_ERR_ARG_NOT_FOUND_GRAPH_NODE);
 		}
 
-		DCL_LOG(INFO, "copping odds value to modifiable memory...");
+		DCL_LOG(INFO, "copying odds value to modifiable memory...");
 
 		DclOddsValue node[content->alphabet_size];
 		void* copy_result = memcpy(node, src_node, sizeof(DclOddsValue) * content->alphabet_size);
